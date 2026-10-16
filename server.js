@@ -555,19 +555,21 @@ function generateClientWebsite({ name, category, city, phone, email, address, is
   fs.writeFileSync(filePath, html, 'utf-8');
 
   const previewUrl = `http://localhost:${PORT}/sites/${slug}/index.html`;
+  const publicUrl = `https://thairumwangi.github.io/daily-cashflow-machine/generated-sites/${slug}/`;
   const mainIssue = issues[0] || 'your current online presence is missing a fast mobile booking & WhatsApp capture page';
 
-  const whatsappPitch = `Hi ${name} team! 👋 I was searching for ${category.replace('_', ' ')}s in ${cleanCity} today and noticed ${mainIssue.toLowerCase()}.\n\nSince I build high-converting sites for local businesses, I went ahead and mocked up a live, mobile-ready version specifically for *${name}* with instant WhatsApp booking built in:\n👉 [Paste Live Link / Screenshot]\n\nNo pressure at all—if you like how it looks, I can connect it to your domain and WhatsApp today for a flat one-time setup. Want me to send a quick 30-second video walkthrough?`;
+  const whatsappPitch = `Hi ${name} team! 👋 I was searching for ${category.replace('_', ' ')}s in ${cleanCity} today and noticed ${mainIssue.toLowerCase()}.\n\nSince I build high-converting sites for local businesses, I went ahead and mocked up a live, mobile-ready version specifically for *${name}* with instant WhatsApp booking built in:\n👉 ${publicUrl}\n\nNo pressure at all—if you like how it looks, I can connect it to your custom domain and WhatsApp today for a flat one-time setup. Want me to send a quick 30-second walkthrough?`;
 
   const emailSubject = `Built a new mobile booking page preview for ${name} (${cleanCity})`;
-  const emailPitch = `Hi ${name} Team,\n\nI was looking at ${name} in ${cleanCity} and noticed that ${mainIssue}.\n\nInstead of sending a generic pitch, I went ahead and built a working mobile website preview customized for ${name}—complete with an instant quote/appointment form and click-to-WhatsApp button:\n\nLive Preview: ${previewUrl} (or attach screenshot)\n\nIf you want it, I can have it live on your domain within 24 hours for a flat $295 one-time fee (no expensive agency retainers).\n\nWould you be open to a quick 5-minute chat today?\n\nBest regards,`;
+  const emailPitch = `Hi ${name} Team,\n\nI was looking at ${name} in ${cleanCity} and noticed that ${mainIssue}.\n\nInstead of sending a generic pitch, I went ahead and built a working mobile website preview customized for ${name}—complete with an instant quote/appointment form and click-to-WhatsApp button:\n\nLive Preview: ${publicUrl}\n\nIf you want it, I can have it live on your custom domain within 24 hours for a flat $295 one-time fee (no expensive agency retainers).\n\nWould you be open to a quick 5-minute chat today?\n\nBest regards,`;
 
-  const callScript = `"Hi, is this the owner/manager at ${name}? Great—I'll be super brief. I noticed when people look up ${name} in ${cleanCity} on their phone, ${mainIssue}. I actually already built a modern mobile version of your site with an instant WhatsApp booking form this morning so you can see it live. Can I text or WhatsApp you the preview link right now to check out?"`;
+  const callScript = `"Hi, is this the owner/manager at ${name}? Great—I'll be super brief. I noticed when people look up ${name} in ${cleanCity} on their phone, ${mainIssue}. I actually already built a modern mobile version of your site with an instant WhatsApp booking form this morning so you can see it live. Can I WhatsApp you the live link (${publicUrl}) right now to check out?"`;
 
   return {
     slug,
     filePath,
     previewUrl,
+    publicUrl,
     pitches: {
       whatsappPitch,
       whatsappSendUrl: waDigits ? `https://wa.me/${waDigits}?text=${encodeURIComponent(whatsappPitch)}` : null,
@@ -717,6 +719,20 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 200, site);
     }
 
+    // API: 1-Click Publish Generated Client Sites to GitHub Pages
+    if (pathname === '/api/sites/publish' && req.method === 'POST') {
+      exec('git add generated-sites && git commit -m "Publish generated client preview sites" && git push origin main', { cwd: __dirname }, (err, stdout, stderr) => {
+        if (err && !String(stdout + stderr).includes('nothing to commit')) {
+          return sendJson(res, 500, { error: stderr || err.message });
+        }
+        return sendJson(res, 200, {
+          published: true,
+          message: 'Client preview sites pushed to GitHub Pages! Live globally in ~30 seconds.'
+        });
+      });
+      return;
+    }
+
     // API: List already generated client websites
     if (pathname === '/api/sites/list' && req.method === 'GET') {
       const slugs = fs.existsSync(SITES_DIR)
@@ -725,7 +741,8 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 200, {
         sites: slugs.map(slug => ({
           slug,
-          previewUrl: `http://localhost:${PORT}/sites/${slug}/index.html`
+          previewUrl: `http://localhost:${PORT}/sites/${slug}/index.html`,
+          publicUrl: `https://thairumwangi.github.io/daily-cashflow-machine/generated-sites/${slug}/`
         }))
       });
     }

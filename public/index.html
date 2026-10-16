@@ -421,10 +421,11 @@
         <div class="panel-header">
           <div>
             <h2 id="siteOutputTitle">✅ Client Preview Site Ready!</h2>
-            <p>Open the live preview, take a screenshot (or drag the HTML folder to <strong>app.netlify.com/drop</strong> for a free public URL in 5 seconds), and send the pitch below:</p>
+            <p>Click <strong>"☁️ Publish Live to GitHub Pages"</strong> so the public HTTPS link works on the client's phone anywhere in the world, then send the pitch below:</p>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a id="btnOpenPreview" href="#" target="_blank" class="btn btn-blue">🌐 Open Live Website Preview ↗</a>
+            <a id="btnOpenPreview" href="#" target="_blank" class="btn btn-blue">🌐 Local Preview ↗</a>
+            <button id="btnPublishGh" onclick="publishToGitHubPages()" class="btn btn-outline">☁️ Publish Live to GitHub Pages</button>
             <a id="btnSendWa" href="#" target="_blank" class="btn">💬 Open in WhatsApp & Send</a>
           </div>
         </div>
@@ -669,9 +670,26 @@ python -c "from faster_whisper import WhisperModel; m = WhisperModel('small', de
         document.getElementById('pitchCall').innerText = data.pitches.callScript;
         document.getElementById('pitchEmail').innerText = `Subject: ${data.pitches.emailSubject}\n\n${data.pitches.emailPitch}`;
 
-        showBanner(`🎉 Generated custom client website for <strong>${payload.name}</strong>! Click "Open Live Website Preview" below.`);
+        showBanner(`🎉 Generated custom client website for <strong>${payload.name}</strong>! Click "☁️ Publish Live to GitHub Pages" so the public link is live.`);
       } catch (err) {
         showBanner(`❌ Error: ${err.message}`, true);
+      }
+    }
+
+    async function publishToGitHubPages() {
+      const btn = document.getElementById('btnPublishGh');
+      btn.disabled = true;
+      btn.innerText = '⏳ Pushing to GitHub Pages...';
+      try {
+        const res = await fetch('/api/sites/publish', { method: 'POST' });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to push');
+        showBanner(`✅ ${data.message}`);
+      } catch (err) {
+        showBanner(`❌ GitHub Push Error: ${err.message}`, true);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = '☁️ Publish Live to GitHub Pages';
       }
     }
 
