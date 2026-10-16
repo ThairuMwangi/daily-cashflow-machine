@@ -1,0 +1,13 @@
+{
+  "name": "daily-cashflow-machine",
+  "version": "1.0.0",
+  "description": "5-in-1 Local PC Daily Cashflow Command Center: B2B Lead Hunter, Live Website Gap Auditor, 1-Click Client Website Generator, and Live Freelance Gig Sniper.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT"
+}

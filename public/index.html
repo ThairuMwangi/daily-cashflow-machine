@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Cashflow Command Center | PC Money-Making Machine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #090d16;
+      --panel: #111827;
+      --panel-alt: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --emerald: #10b981;
+      --emerald-dark: #059669;
+      --blue: #3b82f6;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+      --purple: #8b5cf6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    .topbar {
+      background: rgba(17, 24, 39, 0.92);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--emerald), var(--blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 20px;
+    }
+    .brand h1 { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand p { font-size: 12px; color: var(--muted); }
+    .hw-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .hw-badge {
+      background: var(--panel-alt);
+      border: 1px solid var(--border);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+    .hw-badge span { color: var(--emerald); }
+
+    .container {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 24px 28px 60px;
+    }
+
+    /* Navigation Tabs */
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+    }
+    .tab-btn {
+      background: var(--panel);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 11px 18px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tab-btn:hover { color: var(--text); border-color: #64748b; }
+    .tab-btn.active {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.2));
+      color: #fff;
+      border-color: var(--emerald);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Cards & Controls */
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      margin-bottom: 22px;
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .panel-header h2 { font-size: 19px; font-weight: 800; }
+    .panel-header p { font-size: 13px; color: var(--muted); margin-top: 3px; }
+
+    .controls-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      flex: 1;
+      min-width: 180px;
+    }
+    .field label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .field input, .field select, .field textarea {
+      background: #0b1120;
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 10px 13px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: inherit;
+    }
+    .btn {
+      background: var(--emerald);
+      color: #052e16;
+      border: none;
+      padding: 11px 20px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 13px;
+      cursor: pointer;
+      transition: 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .btn:hover { background: #34d399; }
+    .btn-blue { background: var(--blue); color: #fff; }
+    .btn-blue:hover { background: #2563eb; }
+    .btn-outline {
+      background: var(--panel-alt);
+      color: #e2e8f0;
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { background: #334155; }
+
+    /* Lead / Gig Cards */
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 16px;
+    }
+    .item-card {
+      background: #0d1322;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .item-card.hot { border-color: rgba(245, 158, 11, 0.6); }
+    .score-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+    .score-high { background: rgba(244, 63, 94, 0.2); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.4); }
+    .score-med { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
+
+    .issue-list {
+      list-style: none;
+      background: rgba(15, 23, 42, 0.7);
+      border-left: 3px solid var(--amber);
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      color: #cbd5e1;
+    }
+    .issue-list li { margin-bottom: 3px; }
+    .meta-line { font-size: 12px; color: var(--muted); word-break: break-all; }
+    .meta-line strong { color: #e2e8f0; }
+
+    .pitch-box {
+      background: #070b14;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      font-family: monospace;
+      font-size: 12.5px;
+      white-space: pre-wrap;
+      color: #cbd5e1;
+      margin-top: 8px;
+      max-height: 240px;
+      overflow-y: auto;
+    }
+    .status-banner {
+      padding: 12px 16px;
+      border-radius: 10px;
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.4);
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .routine-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .routine-step {
+      background: var(--panel-alt);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .routine-step h4 { color: var(--emerald); font-size: 14px; margin-bottom: 6px; }
+    .routine-step p { font-size: 13px; color: #cbd5e1; }
+  </style>
+</head>
+<body>
+
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <div>
+        <h1>DAILY CASHFLOW COMMAND CENTER</h1>
+        <p>5-Engine Local PC Money-Making Machine • Zero Paid APIs Required</p>
+      </div>
+    </div>
+    <div class="hw-badges">
+      <div class="hw-badge">CPU: <span>Intel i7-13620H (16T)</span></div>
+      <div class="hw-badge">GPU: <span>RTX 4060 (8GB VRAM)</span></div>
+      <div class="hw-badge">Media: <span>FFmpeg Ready</span></div>
+      <div class="hw-badge">Payments: <span>Stripe • Wise • M-Pesa • Upwork</span></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Daily Execution Routine Banner -->
+    <div class="panel" style="background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%); border-color: #059669;">
+      <div class="panel-header" style="margin-bottom: 12px;">
+        <div>
+          <h2>🎯 Your Daily $200–$500 Execution Blueprint (How to Run This Machine Every Morning)</h2>
+          <p>Do not jump around randomly. Follow this 3-block daily schedule to generate fast cashflow today while building recurring income:</p>
+        </div>
+      </div>
+      <div class="routine-grid">
+        <div class="routine-step">
+          <h4>1. Morning (90 Mins): Website & Audit Drops ($250–$500/sale)</h4>
+          <p>Use <strong>Engine 1 & 2</strong> below to pull 20 local businesses in a high-ticket niche (Dentists, Clinics, Plumbers, Auto Repair). Click <em>"Generate Preview Site"</em> on 10 of them and send the live preview + WhatsApp/Call pitch. Closing just 1 out of 20 = <strong>$250–$500 in a day</strong>.</p>
+        </div>
+        <div class="routine-step">
+          <h4>2. Midday (60 Mins): Live Gig Sniper ($50–$200/day)</h4>
+          <p>Open <strong>Engine 3 (Live Gig Sniper)</strong> to see people hiring right now for scraping, spreadsheets, websites, or video edits. Click <em>"Copy Prompt for Antigravity"</em>, paste it into our chat so I build the sample in 5 minutes, and send them the finished sample to win the gig immediately.</p>
+        </div>
+        <div class="routine-step">
+          <h4>3. Afternoon (45 Mins): Sell Lead Packs & RTX 4060 Clips</h4>
+          <p>Every search in Engine 1 exports a verified <strong>B2B CSV Lead Pack</strong> you can sell to marketing agencies or local brokers. Or use <strong>Engine 4 (RTX 4060 Media Studio)</strong> to clip podcasts into 10 vertical Shorts for creators at $50–$100/pack.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('leads')">🔍 Engine 1: Local Business Lead Hunter & Auditor</button>
+      <button class="tab-btn" onclick="switchTab('sitebuilder')">⚡ Engine 2: Instant Client Website & Pitch Studio</button>
+      <button class="tab-btn" onclick="switchTab('gigs')">🎯 Engine 3: Live Freelance Gig Sniper</button>
+      <button class="tab-btn" onclick="switchTab('gpu')">🎬 Engine 4 & 5: RTX 4060 Video Factory + B2B Templates</button>
+    </div>
+
+    <div id="statusBanner" class="status-banner"></div>
+
+    <!-- ================================================================== -->
+    <!-- TAB 1: LOCAL BUSINESS LEAD HUNTER & LIVE WEBSITE AUDITOR           -->
+    <!-- ================================================================== -->
+    <div id="tab-leads" class="tab-panel active">
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>🔍 Engine 1: Live Local Business Lead Hunter & Website Gap Auditor</h2>
+            <p>Finds real businesses in any city worldwide, checks if their website is missing, broken, or not mobile-friendly, and scores them for an instant $250–$500 pitch.</p>
+          </div>
+          <div id="csvDownloadContainer"></div>
+        </div>
+
+        <div class="controls-row">
+          <div class="field">
+            <label>Target City & Country / State</label>
+            <input type="text" id="leadCity" value="Nairobi, Kenya" placeholder="e.g. Nairobi, Austin TX, London, Mombasa, Dubai" />
+          </div>
+          <div class="field">
+            <label>High-Ticket Business Niche</label>
+            <select id="leadCategory">
+              <option value="dentist">🦷 Dentists & Dental Clinics ($300-$600/site)</option>
+              <option value="clinic">🏥 Medical Clinics & Doctors ($300-$600/site)</option>
+              <option value="car_repair">🔧 Auto Repair & Mechanics ($250-$450/site)</option>
+              <option value="plumber_trade">🛠️ Plumbers, Electricians & Contractors ($300-$500/site)</option>
+              <option value="real_estate">🏢 Real Estate & Property Agents ($350-$700/site)</option>
+              <option value="lawyer">⚖️ Law Firms & Notaries ($400-$800/site)</option>
+              <option value="accountant">📊 Accountants & Tax Advisors ($300-$600/site)</option>
+              <option value="hotel">🏨 Hotels & Guest Houses ($350-$700/site)</option>
+              <option value="salon">💇‍♀️ Beauty Salons & Med-Spas ($200-$400/site)</option>
+              <option value="gym">🏋️ Gyms & Fitness Centers ($250-$500/site)</option>
+            </select>
+          </div>
+          <div class="field" style="max-width: 130px;">
+            <label>Max Leads</label>
+            <select id="leadLimit">
+              <option value="12">12 Leads</option>
+              <option value="20" selected>20 Leads</option>
+              <option value="30">30 Leads</option>
+            </select>
+          </div>
+          <button class="btn" onclick="searchLeads()" id="btnSearchLeads">🚀 Hunt & Audit Live Leads</button>
+        </div>
+      </div>
+
+      <div id="leadsResults" class="grid-cards"></div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- TAB 2: INSTANT CLIENT WEBSITE & PITCH STUDIO                       -->
+    <!-- ================================================================== -->
+    <div id="tab-sitebuilder" class="tab-panel">
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>⚡ Engine 2: 1-Click Client Website Generator & Closing Scripts</h2>
+            <p>Generates a complete, mobile-responsive HTML website customized for your prospect + ready-to-send WhatsApp, Email, and Phone Call closing scripts.</p>
+          </div>
+        </div>
+
+        <div class="controls-row" style="margin-bottom: 14px;">
+          <div class="field">
+            <label>Business Name</label>
+            <input type="text" id="sbName" placeholder="e.g. PrimeCare Dental Clinic" value="PrimeCare Dental Studio" />
+          </div>
+          <div class="field">
+            <label>Industry / Niche</label>
+            <select id="sbCategory">
+              <option value="dentist">Dentist / Dental Clinic</option>
+              <option value="clinic">Medical Clinic / Doctor</option>
+              <option value="plumber_trade">Plumber / Contractor / Home Service</option>
+              <option value="car_repair">Auto Repair / Mechanic</option>
+              <option value="real_estate">Real Estate / Property Agency</option>
+              <option value="default">General Professional Business</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>City / Location</label>
+            <input type="text" id="sbCity" placeholder="e.g. Westlands, Nairobi" value="Nairobi" />
+          </div>
+        </div>
+
+        <div class="controls-row">
+          <div class="field">
+            <label>Client Phone / WhatsApp Number</label>
+            <input type="text" id="sbPhone" placeholder="e.g. +254 712 345 678" value="+254 700 123 456" />
+          </div>
+          <div class="field">
+            <label>Client Email (Optional)</label>
+            <input type="text" id="sbEmail" placeholder="info@business.com" />
+          </div>
+          <div class="field">
+            <label>Detected Audit Issue (Used in Pitch)</label>
+            <input type="text" id="sbIssue" value="your business doesn't have a mobile booking page with instant WhatsApp scheduling" />
+          </div>
+          <button class="btn" onclick="generateCustomSite()">⚡ Build Live Preview Website & Pitches</button>
+        </div>
+      </div>
+
+      <div id="siteOutputPanel" class="panel" style="display:none;">
+        <div class="panel-header">
+          <div>
+            <h2 id="siteOutputTitle">✅ Client Preview Site Ready!</h2>
+            <p>Open the live preview, take a screenshot (or drag the HTML folder to <strong>app.netlify.com/drop</strong> for a free public URL in 5 seconds), and send the pitch below:</p>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a id="btnOpenPreview" href="#" target="_blank" class="btn btn-blue">🌐 Open Live Website Preview ↗</a>
+            <a id="btnSendWa" href="#" target="_blank" class="btn">💬 Open in WhatsApp & Send</a>
+          </div>
+        </div>
+
+        <div class="grid-cards">
+          <div class="item-card">
+            <div>
+              <strong>💬 WhatsApp / SMS Outreach Pitch</strong>
+              <p class="meta-line">Send with a screenshot of their new preview website:</p>
+              <div id="pitchWa" class="pitch-box"></div>
+            </div>
+            <button class="btn btn-outline" onclick="copyText('pitchWa')">📋 Copy WhatsApp Pitch</button>
+          </div>
+
+          <div class="item-card">
+            <div>
+              <strong>📞 30-Second High-Close Phone Script</strong>
+              <p class="meta-line">Call the business number and read this word-for-word:</p>
+              <div id="pitchCall" class="pitch-box"></div>
+            </div>
+            <button class="btn btn-outline" onclick="copyText('pitchCall')">📋 Copy Phone Script</button>
+          </div>
+
+          <div class="item-card">
+            <div>
+              <strong>✉️ Cold Email Pitch</strong>
+              <p class="meta-line">Use if emailing decision makers directly:</p>
+              <div id="pitchEmail" class="pitch-box"></div>
+            </div>
+            <button class="btn btn-outline" onclick="copyText('pitchEmail')">📋 Copy Email Pitch</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- TAB 3: LIVE FREELANCE GIG SNIPER                                   -->
+    <!-- ================================================================== -->
+    <div id="tab-gigs" class="tab-panel">
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>🎯 Engine 3: Real-Time Freelance Gig Sniper (Fast Daily Cash)</h2>
+            <p>Scans live <code>[Hiring]</code> & <code>[Task]</code> posts from Reddit (r/forhire, r/slavelabour, r/DoneDirtCheap). Click <strong>"Copy Antigravity Build Prompt"</strong> on any gig and paste it to me in chat — I'll build the deliverable so you can reply with proof-of-work in 5 minutes!</p>
+          </div>
+          <button class="btn" onclick="loadLiveGigs()" id="btnLoadGigs">🔄 Scan Live Paying Gigs Now</button>
+        </div>
+      </div>
+
+      <div id="gigsResults" class="grid-cards"></div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- TAB 4: RTX 4060 VIDEO FACTORY + DIGITAL PRODUCT TEMPLATES          -->
+    <!-- ================================================================== -->
+    <div id="tab-gpu" class="tab-panel">
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>🎬 Engine 4: Local RTX 4060 + FFmpeg Video Repurposing Pipeline ($0 API Cost)</h2>
+            <p>Your PC has an <strong>NVIDIA GeForce RTX 4060 (8GB VRAM)</strong> and <strong>FFmpeg</strong> installed. You can charge YouTubers, podcasters, coaches, and churches $50–$150 to turn 1 long video into 10 vertical Shorts/Reels with captions.</p>
+          </div>
+        </div>
+
+        <div class="grid-cards">
+          <div class="item-card">
+            <div>
+              <strong>⚡ 1. Instant 9:16 Vertical Shorts Converter (FFmpeg GPU Accelerated)</strong>
+              <p class="meta-line">Converts any 16:9 landscape video clip into a 1080x1920 vertical TikTok/Reel with a blurred background + crisp center foreground using your RTX 4060 NVENC encoder:</p>
+              <div id="cmdFfmpegVertical" class="pitch-box">ffmpeg -i input.mp4 -vf "split[original][copy];[copy]scale=-1:1920,crop=1080:1920,boxblur=25:5[blurred];[original]scale=1080:-1[scaled];[blurred][scaled]overlay=(W-w)/2:(H-h)/2" -c:v h264_nvenc -preset p4 -b:v 6M -c:a aac output_vertical_short.mp4</div>
+            </div>
+            <button class="btn btn-outline" onclick="copyText('cmdFfmpegVertical')">📋 Copy RTX 4060 FFmpeg Command</button>
+          </div>
+
+          <div class="item-card">
+            <div>
+              <strong>🎙️ 2. Local GPU Whisper Auto-Transcriber & SRT Subtitle Generator</strong>
+              <p class="meta-line">Run OpenAI Whisper locally on your RTX 4060 for $0.00 to transcribe client videos or audio gigs on Fiverr/Upwork in seconds:</p>
+              <div id="cmdWhisper" class="pitch-box">pip install faster-whisper
+python -c "from faster_whisper import WhisperModel; m = WhisperModel('small', device='cuda', compute_type='float16'); segments, _ = m.transcribe('input.mp4'); print('\n'.join([f'[{s.start:.1f}s -> {s.end:.1f}s] {s.text}' for s in segments]))"</div>
+            </div>
+            <button class="btn btn-outline" onclick="copyText('cmdWhisper')">📋 Copy Local GPU Whisper Command</button>
+          </div>
+
+          <div class="item-card">
+            <div>
+              <strong>📊 Engine 5: Custom B2B Spreadsheet / Calculator Generator</strong>
+              <p class="meta-line">Want to sell a custom Excel Tracker on Gumroad/Payhip or deliver a spreadsheet gig? Copy this prompt and send it to me in our Antigravity chat:</p>
+              <div id="cmdExcelPrompt" class="pitch-box">Build a complete, multi-tab Excel (.xlsx) business product with formulas, conditional formatting, and a dashboard tab for [NICHE: e.g. Airbnb Hosts / Construction Contractors / Local Retail Inventory], plus write the Gumroad/Etsy product listing title, bullet points, and pricing tiers.</div>
+            </div>
+            <button class="btn btn-outline" onclick="copyText('cmdExcelPrompt')">📋 Copy Antigravity Product Prompt</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + tabId).classList.add('active');
+      const idx = { leads: 0, sitebuilder: 1, gigs: 2, gpu: 3 }[tabId] || 0;
+      document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+    }
+
+    function showBanner(msg, isError = false) {
+      const el = document.getElementById('statusBanner');
+      el.style.display = 'block';
+      el.style.background = isError ? 'rgba(244, 63, 94, 0.18)' : 'rgba(16, 185, 129, 0.16)';
+      el.style.borderColor = isError ? '#f43f5e' : '#10b981';
+      el.innerHTML = msg;
+    }
+
+    function copyText(elementId) {
+      const txt = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(txt);
+      showBanner('✅ Copied to clipboard!');
+    }
+
+    // Engine 1: Search & Audit Leads
+    async function searchLeads() {
+      const city = document.getElementById('leadCity').value.trim();
+      const category = document.getElementById('leadCategory').value;
+      const limit = document.getElementById('leadLimit').value;
+      const btn = document.getElementById('btnSearchLeads');
+      const container = document.getElementById('leadsResults');
+
+      btn.disabled = true;
+      btn.innerText = '⏳ Scanning City & Auditing Websites...';
+      showBanner(`🔍 Searching OpenStreetMap & auditing live business websites in <strong>${city}</strong>... (takes ~5-12 seconds)`);
+      container.innerHTML = '';
+
+      try {
+        const res = await fetch('/api/leads/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ city, category, limit })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to fetch leads');
+
+        showBanner(`✅ Found & audited <strong>${data.leads.length} real businesses</strong> in ${data.city}! Ranked by highest sales opportunity.`);
+
+        if (data.csvExport) {
+          document.getElementById('csvDownloadContainer').innerHTML = `
+            <a href="${data.csvExport.downloadUrl}" class="btn btn-blue" download>📥 Download Verified CSV Lead Pack (${data.leads.length} Leads)</a>
+          `;
+        }
+
+        if (data.leads.length === 0) {
+          container.innerHTML = `<div class="panel">No businesses found for that exact filter. Try a broader city name (e.g. "Nairobi", "London", "Houston") or another category.</div>`;
+          return;
+        }
+
+        container.innerHTML = data.leads.map((l, i) => {
+          const score = l.audit?.opportunityScore || 50;
+          const isHot = score >= 80;
+          const issuesHtml = (l.audit?.issues || []).map(iss => `<li>• ${iss}</li>`).join('');
+          const safeLeadJson = encodeURIComponent(JSON.stringify(l));
+
+          return `
+            <div class="item-card ${isHot ? 'hot' : ''}">
+              <div>
+                <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px;">
+                  <strong style="font-size:16px;">${l.name}</strong>
+                  <span class="score-pill ${isHot ? 'score-high' : 'score-med'}">
+                    ${isHot ? '🔥 ' : ''}${score}/100 Opportunity
+                  </span>
+                </div>
+                <p class="meta-line">📍 ${l.address || l.city}</p>
+                <p class="meta-line">📞 <strong>${l.phone || 'No phone listed (Walk-in / Social)'}</strong> ${l.email ? `• ✉️ ${l.email}` : ''}</p>
+                <p class="meta-line" style="margin-bottom:10px;">
+                  🌐 Website: ${l.website ? `<a href="${l.audit.url || l.website}" target="_blank" style="color:#38bdf8;">${l.website}</a> (${l.audit.status})` : '<strong style="color:#fda4af;">NONE LISTED</strong>'}
+                </p>
+                <ul class="issue-list">${issuesHtml}</ul>
+                <p class="meta-line" style="margin-top:8px; color:#34d399;">💡 <strong>Pitch:</strong> ${l.audit?.recommendedOffer}</p>
+              </div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+                <button class="btn" style="width:100%; justify-content:center;" onclick="oneClickBuildFromLead('${safeLeadJson}')">
+                  ⚡ 1-Click Build Preview Website & Pitch
+                </button>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        showBanner(`❌ Error: ${err.message}`, true);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = '🚀 Hunt & Audit Live Leads';
+      }
+    }
+
+    async function oneClickBuildFromLead(encodedLead) {
+      const lead = JSON.parse(decodeURIComponent(encodedLead));
+      document.getElementById('sbName').value = lead.name || '';
+      document.getElementById('sbCategory').value = lead.category || 'default';
+      document.getElementById('sbCity').value = lead.city || '';
+      document.getElementById('sbPhone').value = lead.phone || '+254 700 000 000';
+      document.getElementById('sbEmail').value = lead.email || '';
+      document.getElementById('sbIssue').value = (lead.audit?.issues || [])[0] || 'your business is missing a mobile booking & WhatsApp capture website';
+
+      switchTab('sitebuilder');
+      await generateCustomSite();
+    }
+
+    // Engine 2: Generate Client Website + Pitches
+    async function generateCustomSite() {
+      const payload = {
+        name: document.getElementById('sbName').value.trim(),
+        category: document.getElementById('sbCategory').value,
+        city: document.getElementById('sbCity').value.trim(),
+        phone: document.getElementById('sbPhone').value.trim(),
+        email: document.getElementById('sbEmail').value.trim(),
+        issues: [document.getElementById('sbIssue').value.trim()]
+      };
+
+      try {
+        const res = await fetch('/api/sites/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to generate website');
+
+        document.getElementById('siteOutputPanel').style.display = 'block';
+        document.getElementById('siteOutputTitle').innerText = `✅ Live Preview Built for "${payload.name}"`;
+        document.getElementById('btnOpenPreview').href = data.previewUrl;
+
+        const btnWa = document.getElementById('btnSendWa');
+        if (data.pitches.whatsappSendUrl) {
+          btnWa.href = data.pitches.whatsappSendUrl;
+          btnWa.style.display = 'inline-flex';
+        } else {
+          btnWa.style.display = 'none';
+        }
+
+        document.getElementById('pitchWa').innerText = data.pitches.whatsappPitch;
+        document.getElementById('pitchCall').innerText = data.pitches.callScript;
+        document.getElementById('pitchEmail').innerText = `Subject: ${data.pitches.emailSubject}\n\n${data.pitches.emailPitch}`;
+
+        showBanner(`🎉 Generated custom client website for <strong>${payload.name}</strong>! Click "Open Live Website Preview" below.`);
+      } catch (err) {
+        showBanner(`❌ Error: ${err.message}`, true);
+      }
+    }
+
+    // Engine 3: Load Live Freelance Gigs
+    async function loadLiveGigs() {
+      const btn = document.getElementById('btnLoadGigs');
+      const container = document.getElementById('gigsResults');
+      btn.disabled = true;
+      btn.innerText = '⏳ Scanning Live Reddit Hiring Feeds...';
+      showBanner('🎯 Fetching real-time [Hiring] and [Task] gigs posted across Reddit...');
+
+      try {
+        const res = await fetch('/api/gigs/live');
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Failed to load gigs');
+
+        showBanner(`✅ Found <strong>${data.count} live paying gigs</strong>! Pick one and click "Copy Antigravity Build Prompt" so I can build the deliverable for you.`);
+
+        container.innerHTML = data.gigs.map((g, idx) => {
+          const promptForAntigravity = `I want to win this live freelance gig right now:\nTitle: ${g.title}\nDetails: ${g.description}\n\n1. Build me a working prototype, script, or sample deliverable right now so I can send proof-of-work.\n2. Write a short, punchy 3-sentence DM I can send to ${g.author} showing that I already built a working sample.`;
+          const encodedPrompt = encodeURIComponent(promptForAntigravity);
+
+          const ageText = g.ageMinutes < 60
+            ? `${g.ageMinutes}m ago`
+            : `${Math.round(g.ageMinutes / 60)}h ago`;
+
+          return `
+            <div class="item-card">
+              <div>
+                <div style="display:flex; justify-content:space-between; gap:8px; margin-bottom:6px;">
+                  <span class="score-pill score-med">${g.category}</span>
+                  <span style="font-size:11px; color:#94a3b8;">${g.source} • ${ageText}</span>
+                </div>
+                <strong style="font-size:15px; display:block; margin-bottom:6px;">${g.title}</strong>
+                <p class="meta-line" style="margin-bottom:10px;">${g.description ? g.description.slice(0, 240) + (g.description.length > 240 ? '...' : '') : 'Click Open Post to view full details.'}</p>
+                <p class="meta-line" style="color:#34d399;"><strong>Speed Rating:</strong> ${g.canAutoBuild}</p>
+              </div>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
+                <button class="btn" onclick="copyDecoded('${encodedPrompt}')">📋 Copy Antigravity Build Prompt</button>
+                <a href="${g.url}" target="_blank" class="btn btn-outline">🔗 Open Reddit Post ↗</a>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (err) {
+        showBanner(`❌ Error loading gigs: ${err.message}`, true);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = '🔄 Scan Live Paying Gigs Now';
+      }
+    }
+
+    function copyDecoded(encoded) {
+      const txt = decodeURIComponent(encoded);
+      navigator.clipboard.writeText(txt);
+      showBanner('✅ Copied! Now paste that prompt into our Antigravity chat and I will build the working sample for you in minutes.');
+    }
+  </script>
+</body>
+</html>
