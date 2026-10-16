@@ -2,6 +2,7 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
+const { searchGigs } = require('./search-gigs');
 
 const PORT = 3050;
 const PUBLIC_DIR = path.join(__dirname, 'public');
@@ -747,10 +748,12 @@ const server = http.createServer(async (req, res) => {
       });
     }
 
-    // API: Engine 3 - Live Freelance Gig Sniper
+    // API: Engine 3 - Live Freelance Gig Sniper (Keyword + City Search)
     if (pathname === '/api/gigs/live' && req.method === 'GET') {
-      const gigs = await fetchLiveGigs();
-      return sendJson(res, 200, { count: gigs.length, gigs });
+      const query = parsedUrl.searchParams.get('query') || 'design';
+      const location = parsedUrl.searchParams.get('location') || 'San Francisco';
+      const gigs = await searchGigs({ query, location });
+      return sendJson(res, 200, { count: gigs.length, query, location, gigs });
     }
 
     // Serve generated client websites under /sites/<slug>/index.html

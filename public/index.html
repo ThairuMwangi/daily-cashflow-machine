@@ -334,7 +334,7 @@
         <div class="controls-row">
           <div class="field">
             <label>Target City & Country / State</label>
-            <input type="text" id="leadCity" value="Nairobi, Kenya" placeholder="e.g. Nairobi, Austin TX, London, Mombasa, Dubai" />
+            <input type="text" id="leadCity" value="San Francisco, CA" placeholder="e.g. San Francisco CA, Nairobi, Austin TX, London" />
           </div>
           <div class="field">
             <label>High-Ticket Business Niche</label>
@@ -468,10 +468,20 @@
       <div class="panel">
         <div class="panel-header">
           <div>
-            <h2>🎯 Engine 3: Real-Time Freelance Gig Sniper (Fast Daily Cash)</h2>
-            <p>Scans live <code>[Hiring]</code> & <code>[Task]</code> posts from Reddit (r/forhire, r/slavelabour, r/DoneDirtCheap). Click <strong>"Copy Antigravity Build Prompt"</strong> on any gig and paste it to me in chat — I'll build the deliverable so you can reply with proof-of-work in 5 minutes!</p>
+            <h2>🎯 Engine 3: Real-Time Design & Tech Gig Sniper (YC / SF Startups + Remote Boards)</h2>
+            <p>Searches live San Francisco YC startup founders (with direct emails!), HN Freelance contracts, RemoteOK, and WeWorkRemotely. Click <strong>"Copy Antigravity Build Prompt"</strong> on any gig and paste it to me in chat!</p>
           </div>
-          <button class="btn" onclick="loadLiveGigs()" id="btnLoadGigs">🔄 Scan Live Paying Gigs Now</button>
+        </div>
+        <div class="controls-row">
+          <div class="field">
+            <label>Skill / Gig Keyword</label>
+            <input type="text" id="gigQuery" value="design" placeholder="e.g. design, UI/UX, figma, frontend, web, video" />
+          </div>
+          <div class="field">
+            <label>Target City / Region</label>
+            <input type="text" id="gigLocation" value="San Francisco" placeholder="e.g. San Francisco, New York, Remote, London" />
+          </div>
+          <button class="btn" onclick="loadLiveGigs()" id="btnLoadGigs">🔄 Search Live Design & Tech Gigs</button>
         </div>
       </div>
 
@@ -626,9 +636,9 @@ python -c "from faster_whisper import WhisperModel; m = WhisperModel('small', de
       document.getElementById('sbName').value = lead.name || '';
       document.getElementById('sbCategory').value = lead.category || 'default';
       document.getElementById('sbCity').value = lead.city || '';
-      document.getElementById('sbPhone').value = lead.phone || '+254 700 000 000';
+      document.getElementById('sbPhone').value = lead.phone || '+1 415 555 0199';
       document.getElementById('sbEmail').value = lead.email || '';
-      document.getElementById('sbIssue').value = (lead.audit?.issues || [])[0] || 'your business is missing a mobile booking & WhatsApp capture website';
+      document.getElementById('sbIssue').value = (lead.audit?.issues || [])[0] || 'your business is missing a modern mobile booking website';
 
       switchTab('sitebuilder');
       await generateCustomSite();
@@ -695,41 +705,40 @@ python -c "from faster_whisper import WhisperModel; m = WhisperModel('small', de
 
     // Engine 3: Load Live Freelance Gigs
     async function loadLiveGigs() {
+      const query = document.getElementById('gigQuery').value.trim() || 'design';
+      const location = document.getElementById('gigLocation').value.trim() || 'San Francisco';
       const btn = document.getElementById('btnLoadGigs');
       const container = document.getElementById('gigsResults');
       btn.disabled = true;
-      btn.innerText = '⏳ Scanning Live Reddit Hiring Feeds...';
-      showBanner('🎯 Fetching real-time [Hiring] and [Task] gigs posted across Reddit...');
+      btn.innerText = '⏳ Scanning SF Startups & Design Boards...';
+      showBanner(`🎯 Searching live <strong>${query}</strong> gigs & startup contracts for <strong>${location}</strong>...`);
 
       try {
-        const res = await fetch('/api/gigs/live');
+        const res = await fetch(`/api/gigs/live?query=${encodeURIComponent(query)}&location=${encodeURIComponent(location)}`);
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Failed to load gigs');
 
-        showBanner(`✅ Found <strong>${data.count} live paying gigs</strong>! Pick one and click "Copy Antigravity Build Prompt" so I can build the deliverable for you.`);
+        showBanner(`✅ Found <strong>${data.count} live ${query} gigs & contracts</strong>! Pick one and click "Copy Antigravity Build Prompt" so I can build a live redesign prototype for you.`);
 
         container.innerHTML = data.gigs.map((g, idx) => {
-          const promptForAntigravity = `I want to win this live freelance gig right now:\nTitle: ${g.title}\nDetails: ${g.description}\n\n1. Build me a working prototype, script, or sample deliverable right now so I can send proof-of-work.\n2. Write a short, punchy 3-sentence DM I can send to ${g.author} showing that I already built a working sample.`;
+          const promptForAntigravity = `I want to win this live Design / UI gig right now:\nRole/Title: ${g.title}\nSource: ${g.source}\nURL: ${g.url}\n${g.contactEmail ? 'Direct Founder/Client Email: ' + g.contactEmail + '\n' : ''}Details: ${g.description}\n\n1. Build me a stunning, interactive HTML/CSS/JS UI redesign prototype or landing page concept for this company inside generated-sites/ so we can publish it to my GitHub Pages link.\n2. Write a short, high-converting cold email/pitch to ${g.contactEmail || g.author} with the live prototype link attached.`;
           const encodedPrompt = encodeURIComponent(promptForAntigravity);
 
-          const ageText = g.ageMinutes < 60
-            ? `${g.ageMinutes}m ago`
-            : `${Math.round(g.ageMinutes / 60)}h ago`;
-
           return `
-            <div class="item-card">
+            <div class="item-card ${g.contactEmail ? 'hot' : ''}">
               <div>
                 <div style="display:flex; justify-content:space-between; gap:8px; margin-bottom:6px;">
-                  <span class="score-pill score-med">${g.category}</span>
-                  <span style="font-size:11px; color:#94a3b8;">${g.source} • ${ageText}</span>
+                  <span class="score-pill ${g.contactEmail ? 'score-high' : 'score-med'}">${g.category}</span>
+                  <span style="font-size:11px; color:#94a3b8;">${g.source}</span>
                 </div>
                 <strong style="font-size:15px; display:block; margin-bottom:6px;">${g.title}</strong>
-                <p class="meta-line" style="margin-bottom:10px;">${g.description ? g.description.slice(0, 240) + (g.description.length > 240 ? '...' : '') : 'Click Open Post to view full details.'}</p>
-                <p class="meta-line" style="color:#34d399;"><strong>Speed Rating:</strong> ${g.canAutoBuild}</p>
+                ${g.contactEmail ? `<p class="meta-line" style="color:#fcd34d; margin-bottom:6px;">📧 <strong>Direct Founder Email:</strong> <a href="mailto:${g.contactEmail}" style="color:#38bdf8;">${g.contactEmail}</a></p>` : ''}
+                <p class="meta-line" style="margin-bottom:10px;">${g.description ? g.description.slice(0, 260) + (g.description.length > 260 ? '...' : '') : 'Click Open Listing to view full details.'}</p>
+                <p class="meta-line" style="color:#34d399;"><strong>Pitch Strategy:</strong> ${g.canAutoBuild}</p>
               </div>
               <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
-                <button class="btn" onclick="copyDecoded('${encodedPrompt}')">📋 Copy Antigravity Build Prompt</button>
-                <a href="${g.url}" target="_blank" class="btn btn-outline">🔗 Open Reddit Post ↗</a>
+                <button class="btn" onclick="copyDecoded('${encodedPrompt}')">📋 Copy Antigravity Prototype Prompt</button>
+                <a href="${g.url}" target="_blank" class="btn btn-outline">🔗 Open Listing ↗</a>
               </div>
             </div>
           `;
@@ -738,7 +747,7 @@ python -c "from faster_whisper import WhisperModel; m = WhisperModel('small', de
         showBanner(`❌ Error loading gigs: ${err.message}`, true);
       } finally {
         btn.disabled = false;
-        btn.innerText = '🔄 Scan Live Paying Gigs Now';
+        btn.innerText = '🔄 Search Live Design & Tech Gigs';
       }
     }
 
