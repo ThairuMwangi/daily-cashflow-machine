@@ -41,25 +41,6 @@ const DESIGN_VARIANTS = [
     stepsLayout: 'minimal-numbered'
   },
   {
-    id: 'boutique-champagne',
-    label: 'Luxury Boutique Serif & Magazine Frame',
-    fontUrl: 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap',
-    headingFont: "'Fraunces', serif",
-    bodyFont: "'DM Sans', sans-serif",
-    primary900: '#1C1917',
-    primary800: '#292524',
-    accent600: '#0F766E',
-    accent500: '#14B8A6',
-    accent100: '#CCFBF1',
-    ctaGold: '#D97706',
-    ctaGoldHover: '#B45309',
-    canvas50: '#FBF9F5',
-    canvas100: '#F3EFE6',
-    heroLayout: 'magazine-frame',
-    servicesLayout: 'editorial-portrait',
-    stepsLayout: 'dark-contrast-steps'
-  },
-  {
     id: 'modern-teal-slate',
     label: 'Ocean Teal & Staggered Dual-Column',
     fontUrl: 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap',

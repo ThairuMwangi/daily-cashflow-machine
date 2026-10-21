@@ -7,18 +7,18 @@
   <meta name="description" content="Kilimani Dental Clinic in Kilimani, Nairobi. Experience pain-free checkups, laser teeth whitening, zirconia crowns, and family dentistry in a calm, spotless clinical suite — with transparent pricing and instant booking." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary-900: #1C1917;
-      --primary-800: #292524;
-      --accent-600: #0F766E;
+      --primary-900: #082F36;
+      --primary-800: #0E4650;
+      --accent-600: #0D9488;
       --accent-500: #14B8A6;
       --accent-100: #CCFBF1;
-      --gold-500: #D97706;
-      --gold-600: #B45309;
-      --canvas-50: #FBF9F5;
-      --canvas-100: #F3EFE6;
+      --gold-500: #F59E0B;
+      --gold-600: #D97706;
+      --canvas-50: #F4F8F8;
+      --canvas-100: #E6F0F0;
       --white: #FFFFFF;
       --slate-900: #111827;
       --slate-700: #374151;
@@ -40,7 +40,7 @@
       -webkit-font-smoothing: antialiased;
     }
     h1, h2, h3, h4 {
-      font-family: 'Fraunces', serif;
+      font-family: 'Sora', sans-serif;
       letter-spacing: -0.02em;
     }
 
@@ -96,7 +96,7 @@
       display: flex; align-items: center; justify-content: center;
       font-weight: 800; font-size: 18px;
     }
-    .brand-name { font-size: 19px; font-weight: 800; line-height: 1.1; font-family: 'Fraunces', serif; }
+    .brand-name { font-size: 19px; font-weight: 800; line-height: 1.1; font-family: 'Sora', sans-serif; }
     .brand-name small {
       display: block; font-size: 11px; font-weight: 600;
       color: var(--accent-600); letter-spacing: 0.04em; text-transform: uppercase;
@@ -303,15 +303,15 @@
 
     /* Steps Section */
     .steps-section {
-      background: var(--primary-900);
-      color: var(--white);
+      background: var(--canvas-100);
+      color: var(--slate-900);
       padding: 76px 6%;
     }
     .steps-inner { max-width: 1240px; margin: 0 auto; text-align: center; }
     .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 44px; }
     .step-card {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.14);
+      background: var(--white);
+      border: 1px solid var(--border);
       border-radius: var(--radius-md); padding: 28px 22px; text-align: center;
     }
     .step-num {
@@ -420,15 +420,12 @@
     </div>
 
     
-      <div class="hero-mag-wrap">
-        <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=900&q=85" alt="Kilimani Dental Clinic" class="mag-main-img" loading="eager" />
-        <div class="mag-pill-top">✦ Private Executive Suites</div>
-        <div class="mag-card-bottom">
-          <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&w=500&q=80" alt="Lead Specialist" />
-          <div>
-            <strong>15+ Years of Clinical Excellence</strong>
-            <span>Verified Specialists • Same-Day Booking</span>
-          </div>
+      <div class="hero-stagger-wrap">
+        <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=900&q=85" alt="Kilimani Dental Clinic" class="stagger-col-1" loading="eager" />
+        <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80" alt="Kilimani Dental Clinic Care" class="stagger-col-2" loading="eager" />
+        <div class="stagger-center-badge">
+          <strong>15+</strong>
+          <span>Years of Clinical Excellence</span>
         </div>
       </div>
     
@@ -436,78 +433,84 @@
 
   <!-- 2. Services Section (Dynamic Layout Variant) -->
   
-      <section class="section" id="services" style="background: var(--canvas-100); border-radius: 32px; margin: 20px auto;">
-        <div style="text-align:center; max-width:660px; margin:0 auto 32px;">
-          <span class="eyebrow">CURATED TREATMENTS & SERVICES</span>
-          <h2 style="font-size: clamp(28px, 3.4vw, 42px); margin-bottom:12px;"> Bespoke Clinical & Aesthetic Care</h2>
-          <div class="filter-pills-light" style="justify-content:center; margin-top:16px;">
-            <button class="filter-pill-light active" onclick="filterServices('all', this)">All</button>
-            <button class="filter-pill-light" onclick="filterServices('general', this)">General</button>
-            <button class="filter-pill-light" onclick="filterServices('cosmetic', this)">Cosmetic</button>
-            <button class="filter-pill-light" onclick="filterServices('specialized', this)">Specialized</button>
+    <section class="services-band" id="services">
+      <div class="services-band-inner">
+        <div>
+          <span class="eyebrow" style="color:var(--accent-100);">WHAT WE OFFER</span>
+          <h2>Professional Services Tailored for Every Need</h2>
+        </div>
+        <div class="services-band-right">
+          <p>Select any service below to view transparent details or click the <strong>+</strong> button to pre-fill your booking request immediately.</p>
+          <div class="filter-pills">
+            <button class="filter-pill active" onclick="filterServices('all', this)">All Services</button>
+            <button class="filter-pill" onclick="filterServices('general', this)">General & Priority</button>
+            <button class="filter-pill" onclick="filterServices('cosmetic', this)">Cosmetic & Preventive</button>
+            <button class="filter-pill" onclick="filterServices('specialized', this)">Specialized Care</button>
           </div>
         </div>
-        <div class="services-cards-wrap" style="margin-top:0; padding:0;">
-          
-            <div class="service-card" data-category="cosmetic" style="border-radius: 22px;">
-              <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=700&q=80" alt="Scaling, Polishing & Whitening" style="height:230px;" loading="lazy" />
-              <div class="service-card-body">
-                <div>
-                  <h3>Scaling, Polishing & Whitening</h3>
-                  <p>Ultrasonic plaque removal, stain polishing, and enamel-safe laser whitening.</p>
-                </div>
-                <div class="service-card-footer">
-                  <span class="price-tag">Consultation + Cleaning</span>
-                  <button class="plus-btn" onclick="selectService('Scaling, Polishing & Whitening')">→</button>
-                </div>
-              </div>
+      </div>
+    </section>
+
+    <div class="services-cards-wrap">
+      
+        <div class="service-card" data-category="cosmetic">
+          <img src="https://images.unsplash.com/photo-1666214280557-f1b5022eb634?auto=format&fit=crop&w=700&q=80" alt="Scaling, Polishing & Whitening" loading="lazy" />
+          <div class="service-card-body">
+            <div>
+              <h3>Scaling, Polishing & Whitening</h3>
+              <p>Ultrasonic plaque removal, stain polishing, and enamel-safe laser whitening.</p>
             </div>
-          
-            <div class="service-card" data-category="general" style="border-radius: 22px;">
-              <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=700&q=80" alt="Emergency Toothache & Fillings" style="height:230px;" loading="lazy" />
-              <div class="service-card-body">
-                <div>
-                  <h3>Emergency Toothache & Fillings</h3>
-                  <p>Immediate pain relief, tooth-colored composite fillings, and gentle root canal care.</p>
-                </div>
-                <div class="service-card-footer">
-                  <span class="price-tag">Same-Day Priority Slot</span>
-                  <button class="plus-btn" onclick="selectService('Emergency Toothache & Fillings')">→</button>
-                </div>
-              </div>
+            <div class="service-card-footer">
+              <span class="price-tag">Consultation + Cleaning</span>
+              <button class="plus-btn" title="Select Scaling, Polishing & Whitening for booking" onclick="selectService('Scaling, Polishing & Whitening')">+</button>
             </div>
-          
-            <div class="service-card" data-category="specialized" style="border-radius: 22px;">
-              <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=700&q=80" alt="Dental Implants & Crowns" style="height:230px;" loading="lazy" />
-              <div class="service-card-body">
-                <div>
-                  <h3>Dental Implants & Crowns</h3>
-                  <p>Natural-looking zirconia crowns, bridges, and permanent titanium dental implants.</p>
-                </div>
-                <div class="service-card-footer">
-                  <span class="price-tag">Full Assessment Included</span>
-                  <button class="plus-btn" onclick="selectService('Dental Implants & Crowns')">→</button>
-                </div>
-              </div>
-            </div>
-          
-            <div class="service-card" data-category="cosmetic" style="border-radius: 22px;">
-              <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=700&q=80" alt="Braces & Clear Aligners" style="height:230px;" loading="lazy" />
-              <div class="service-card-body">
-                <div>
-                  <h3>Braces & Clear Aligners</h3>
-                  <p>Modern orthodontic alignment for children, teens, and adults with discreet options.</p>
-                </div>
-                <div class="service-card-footer">
-                  <span class="price-tag">Flexible Monthly Plans</span>
-                  <button class="plus-btn" onclick="selectService('Braces & Clear Aligners')">→</button>
-                </div>
-              </div>
-            </div>
-          
+          </div>
         </div>
-      </section>
-    
+      
+        <div class="service-card" data-category="general">
+          <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=700&q=80" alt="Emergency Toothache & Fillings" loading="lazy" />
+          <div class="service-card-body">
+            <div>
+              <h3>Emergency Toothache & Fillings</h3>
+              <p>Immediate pain relief, tooth-colored composite fillings, and gentle root canal care.</p>
+            </div>
+            <div class="service-card-footer">
+              <span class="price-tag">Same-Day Priority Slot</span>
+              <button class="plus-btn" title="Select Emergency Toothache & Fillings for booking" onclick="selectService('Emergency Toothache & Fillings')">+</button>
+            </div>
+          </div>
+        </div>
+      
+        <div class="service-card" data-category="specialized">
+          <img src="https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=700&q=80" alt="Dental Implants & Crowns" loading="lazy" />
+          <div class="service-card-body">
+            <div>
+              <h3>Dental Implants & Crowns</h3>
+              <p>Natural-looking zirconia crowns, bridges, and permanent titanium dental implants.</p>
+            </div>
+            <div class="service-card-footer">
+              <span class="price-tag">Full Assessment Included</span>
+              <button class="plus-btn" title="Select Dental Implants & Crowns for booking" onclick="selectService('Dental Implants & Crowns')">+</button>
+            </div>
+          </div>
+        </div>
+      
+        <div class="service-card" data-category="cosmetic">
+          <img src="https://images.unsplash.com/photo-1551076805-e1869033e561?auto=format&fit=crop&w=700&q=80" alt="Braces & Clear Aligners" loading="lazy" />
+          <div class="service-card-body">
+            <div>
+              <h3>Braces & Clear Aligners</h3>
+              <p>Modern orthodontic alignment for children, teens, and adults with discreet options.</p>
+            </div>
+            <div class="service-card-footer">
+              <span class="price-tag">Flexible Monthly Plans</span>
+              <button class="plus-btn" title="Select Braces & Clear Aligners for booking" onclick="selectService('Braces & Clear Aligners')">+</button>
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
 
   <!-- 3. About + Elevated Booking Card -->
   <section class="section split-booking" id="about">
@@ -568,7 +571,7 @@
   <!-- 4. 4 Simple Steps -->
   <section class="steps-section" id="process">
     <div class="steps-inner">
-      <span class="eyebrow" style="color:var(--accent-100);">HOW IT WORKS</span>
+      <span class="eyebrow" style="">HOW IT WORKS</span>
       <h2 style="font-size: clamp(26px, 3vw, 36px);">Seamless Experience in 4 Simple Steps</h2>
       <div class="steps-grid">
         <div class="step-card">
