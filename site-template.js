@@ -1150,6 +1150,7 @@ if (require.main === module) {
     const folder = path.join(__dirname, 'generated-sites', s.slug);
     fs.mkdirSync(folder, { recursive: true });
     fs.writeFileSync(path.join(folder, 'index.html'), buildHighEndSiteHtml(s), 'utf-8');
-    console.log(`Rebuilt [${s.slug}] with Variant #${s.variantIndex + 1} (${DESIGN_VARIANTS[s.variantIndex].label})`);
+    const vIdx = s.variantIndex % DESIGN_VARIANTS.length;
+    console.log(`Rebuilt [${s.slug}] with Variant #${vIdx + 1} (${DESIGN_VARIANTS[vIdx].label})`);
   }
 }
