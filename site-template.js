@@ -1180,6 +1180,51 @@ if (require.main === module) {
       address: 'Upper Hill, Nairobi',
       phone: '+254 700 123 456',
       variantIndex: 1
+    },
+    {
+      slug: 'summit-dental-care',
+      name: 'Summit Dental Care',
+      category: 'dentist',
+      city: 'Kilimani, Nairobi',
+      address: 'Ring Road Kilimani (Near Yaya Centre), Nairobi',
+      phone: '+254 743 111 999',
+      variantIndex: 0
+    },
+    {
+      slug: 'absolute-dental',
+      name: 'Absolute Dental',
+      category: 'dentist',
+      city: 'Nairobi CBD',
+      address: 'Ecobank Towers, Muindi Mbingu Street, Nairobi',
+      phone: '+254 702 340 032',
+      variantIndex: 1
+    },
+    {
+      slug: 'dental-care-kenya',
+      name: 'Dental Care Kenya',
+      category: 'dentist',
+      city: 'Nairobi CBD',
+      address: 'Eagle House, Kimathi Street, Nairobi',
+      phone: '+254 724 316 065',
+      variantIndex: 2
+    },
+    {
+      slug: 'arrow-dental-centre',
+      name: 'Arrow Dental Centre',
+      category: 'dentist',
+      city: 'Nairobi CBD',
+      address: 'Pension Towers, Loita Street, Nairobi',
+      phone: '+254 740 187 579',
+      variantIndex: 0
+    },
+    {
+      slug: 'baraka-smiles-dental',
+      name: 'Baraka Smiles Dental Clinic',
+      category: 'dentist',
+      city: 'Nairobi CBD',
+      address: 'Afya Centre, Nairobi',
+      phone: '+254 797 771 053',
+      variantIndex: 1
     }
   ];
 
