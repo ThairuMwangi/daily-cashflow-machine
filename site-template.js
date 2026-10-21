@@ -1235,8 +1235,21 @@ if (require.main === module) {
     if (fs.existsSync(wmSource)) {
       fs.copyFileSync(wmSource, path.join(folder, 'watermark.png'));
     }
-    fs.writeFileSync(path.join(folder, 'index.html'), buildHighEndSiteHtml({ ...s, watermark: true }), 'utf-8');
     const vIdx = s.variantIndex % DESIGN_VARIANTS.length;
+    fs.writeFileSync(path.join(folder, 'index.html'), buildHighEndSiteHtml({ ...s, variantIndex: vIdx, watermark: true }), 'utf-8');
+    fs.writeFileSync(path.join(folder, 'meta.json'), JSON.stringify({
+      slug: s.slug,
+      name: s.name,
+      category: s.category,
+      city: s.city,
+      address: s.address,
+      phone: s.phone,
+      email: s.email || '',
+      variantIndex: vIdx,
+      variantLabel: DESIGN_VARIANTS[vIdx].label,
+      watermark: true,
+      updatedAt: new Date().toISOString()
+    }, null, 2), 'utf-8');
     console.log(`Rebuilt [${s.slug}] with Variant #${vIdx + 1} (${DESIGN_VARIANTS[vIdx].label}) + Daniel Thairu Designs Watermark`);
   }
 }

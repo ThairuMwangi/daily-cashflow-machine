@@ -3,675 +3,1130 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daily Cashflow Command Center | PC Money-Making Machine</title>
+  <title>Daniel Thairu Designs — Admin Command Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #090d16;
-      --panel: #111827;
-      --panel-alt: #1e293b;
-      --border: #334155;
-      --text: #f8fafc;
-      --muted: #94a3b8;
-      --emerald: #10b981;
-      --emerald-dark: #059669;
-      --blue: #3b82f6;
-      --amber: #f59e0b;
-      --rose: #f43f5e;
-      --purple: #8b5cf6;
+      /* Template 1: Botanical Forest & Editorial Ivory Palette */
+      --primary-900: #11382f;
+      --primary-800: #194d40;
+      --primary-700: #216353;
+      --accent-500: #2b8a6e;
+      --accent-100: #dff2ec;
+      --surface-cream: #f4f7f5;
+      --white: #ffffff;
+      --slate-900: #0f1f1c;
+      --slate-700: #3a4f49;
+      --slate-500: #687d77;
+      --border: #dce6e2;
+      --amber-bg: #fef3c7;
+      --amber-text: #92400e;
+      --amber-border: #fde68a;
+      --emerald-bg: #d1fae5;
+      --emerald-text: #065f46;
+      --rose-bg: #ffe4e6;
+      --rose-text: #9f1239;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 12px 32px -8px rgba(17, 56, 47, 0.07);
+      --shadow-hover: 0 20px 40px -12px rgba(17, 56, 47, 0.14);
     }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.5;
-      min-height: 100vh;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--surface-cream);
+      color: var(--slate-900);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
-    .topbar {
-      background: rgba(17, 24, 39, 0.92);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 28px;
+    h1, h2, h3, .serif {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.025em;
+    }
+    .serif-italic {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    /* Top Editorial Utility Bar (Heuristic #1: Visibility of System Status) */
+    .utility-bar {
+      background: var(--primary-900);
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 12.5px;
+      padding: 9px 5%;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
       gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #34d399;
+      margin-right: 6px;
+      box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.25);
+    }
+
+    /* Main Sticky Navigation Header */
+    header {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 5%;
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
     }
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
+      text-decoration: none;
+      color: var(--primary-900);
     }
-    .brand-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--emerald), var(--blue));
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      background: var(--primary-900);
+      color: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 20px;
+      font-size: 16px;
+      letter-spacing: -0.03em;
     }
-    .brand h1 { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
-    .brand p { font-size: 12px; color: var(--muted); }
-    .hw-badges {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
+    .brand-title {
+      font-weight: 800;
+      font-size: 17px;
+      color: var(--primary-900);
+      line-height: 1.15;
     }
-    .hw-badge {
-      background: var(--panel-alt);
-      border: 1px solid var(--border);
-      padding: 5px 11px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 600;
-      color: #cbd5e1;
-    }
-    .hw-badge span { color: var(--emerald); }
-
-    .container {
-      max-width: 1360px;
-      margin: 0 auto;
-      padding: 24px 28px 60px;
+    .brand-sub {
+      font-size: 12px;
+      color: var(--slate-500);
+      font-weight: 500;
     }
 
     /* Navigation Tabs */
-    .tabs {
+    .nav-tabs {
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 14px;
-    }
-    .tab-btn {
-      background: var(--panel);
-      color: var(--muted);
+      gap: 6px;
+      background: var(--surface-cream);
+      padding: 5px;
+      border-radius: var(--radius-pill);
       border: 1px solid var(--border);
-      padding: 11px 18px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 13px;
-      cursor: pointer;
-      transition: 0.2s;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+      flex-wrap: wrap;
     }
-    .tab-btn:hover { color: var(--text); border-color: #64748b; }
-    .tab-btn.active {
-      background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(59, 130, 246, 0.2));
-      color: #fff;
-      border-color: var(--emerald);
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+    .nav-tab {
+      background: transparent;
+      border: none;
+      color: var(--slate-700);
+      padding: 9px 18px;
+      border-radius: var(--radius-pill);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .nav-tab:hover {
+      color: var(--primary-900);
+    }
+    .nav-tab.active {
+      background: var(--primary-900);
+      color: var(--white);
+      box-shadow: 0 4px 12px rgba(17, 56, 47, 0.18);
+    }
+    .tab-count {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 1px 7px;
+      border-radius: 999px;
+      font-size: 11px;
+    }
+    .nav-tab:not(.active) .tab-count {
+      background: var(--accent-100);
+      color: var(--primary-900);
     }
 
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: var(--radius-pill);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: all 0.18s ease;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--primary-900);
+      color: var(--white);
+    }
+    .btn-primary:hover {
+      background: var(--primary-800);
+      transform: translateY(-1px);
+    }
+    .btn-accent {
+      background: var(--accent-500);
+      color: var(--white);
+    }
+    .btn-accent:hover {
+      background: var(--primary-700);
+      transform: translateY(-1px);
+    }
+    .btn-outline {
+      background: var(--white);
+      color: var(--primary-900);
+      border-color: var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--primary-900);
+      background: var(--surface-cream);
+    }
+    .btn-soft {
+      background: var(--accent-100);
+      color: var(--primary-900);
+    }
+    .btn-soft:hover {
+      background: #ccebe1;
+    }
+    .btn-amber {
+      background: var(--amber-bg);
+      color: var(--amber-text);
+      border-color: var(--amber-border);
+    }
+    .btn-amber:hover {
+      background: #fde68a;
+    }
+    .btn-sm {
+      padding: 7px 13px;
+      font-size: 12px;
+    }
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Hero Admin Overview Banner (Template 1 Forest Band) */
+    .admin-hero {
+      background: var(--primary-900);
+      color: var(--white);
+      padding: 36px 5% 44px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .admin-hero-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--accent-100);
+      padding: 5px 13px;
+      border-radius: var(--radius-pill);
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .admin-hero h1 {
+      font-size: clamp(26px, 3vw, 38px);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+    .admin-hero p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 14.5px;
+      max-width: 640px;
+    }
+    .kpi-row {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .kpi-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 16px;
+      padding: 14px 20px;
+      min-width: 145px;
+    }
+    .kpi-card strong {
+      display: block;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+    }
+    .kpi-card span {
+      font-size: 12px;
+      color: var(--accent-100);
+      font-weight: 600;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 28px 5% 64px;
+    }
+
+    /* Toast Notification (Heuristic #1: Immediate Action Feedback) */
+    .toast-bar {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--primary-900);
+      color: var(--white);
+      padding: 14px 22px;
+      border-radius: 14px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.22);
+      font-size: 13.5px;
+      font-weight: 600;
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* Tab Panels */
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
-    /* Cards & Controls */
-    .panel {
-      background: var(--panel);
+    /* Section Card & Filter Toolbar */
+    .toolbar-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 260px;
+    }
+    .search-box input, .field input, .field select, .field textarea {
+      width: 100%;
+      padding: 11px 15px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface-cream);
+      color: var(--slate-900);
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 500;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .search-box input:focus, .field input:focus, .field select:focus, .field textarea:focus {
+      border-color: var(--accent-500);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(43, 138, 110, 0.12);
+    }
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter-pill {
+      background: var(--surface-cream);
+      color: var(--slate-700);
+      border: 1px solid var(--border);
+      padding: 8px 15px;
+      border-radius: var(--radius-pill);
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .filter-pill.active, .filter-pill:hover {
+      background: var(--primary-900);
+      color: var(--white);
+      border-color: var(--primary-900);
+    }
+
+    /* Client Sites Grid */
+    .sites-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 20px;
+    }
+    .site-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .site-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+    .site-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .site-card-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--primary-900);
+      line-height: 1.25;
+    }
+    .site-card-meta {
+      font-size: 13px;
+      color: var(--slate-500);
+      margin-top: 4px;
+    }
+
+    /* Status Badges */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 11px;
+      border-radius: var(--radius-pill);
+      font-size: 11.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .badge-protected {
+      background: var(--amber-bg);
+      color: var(--amber-text);
+      border: 1px solid var(--amber-border);
+    }
+    .badge-paid {
+      background: var(--emerald-bg);
+      color: var(--emerald-text);
+      border: 1px solid #a7f3d0;
+    }
+    .badge-style {
+      background: var(--accent-100);
+      color: var(--primary-900);
+    }
+
+    /* Admin Control Box Inside Each Card */
+    .control-box {
+      background: var(--surface-cream);
       border: 1px solid var(--border);
       border-radius: 14px;
-      padding: 22px;
-      margin-bottom: 22px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .control-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .control-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--slate-700);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .style-select {
+      padding: 7px 11px;
+      border-radius: 9px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      color: var(--slate-900);
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      flex: 1;
+      min-width: 190px;
+    }
+
+    /* Card Action Buttons Row */
+    .card-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .card-actions-full {
+      grid-column: 1 / -1;
+    }
+
+    /* Panel & Form Layouts */
+    .panel {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 24px;
     }
     .panel-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 18px;
+      gap: 16px;
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border);
     }
-    .panel-header h2 { font-size: 19px; font-weight: 800; }
-    .panel-header p { font-size: 13px; color: var(--muted); margin-top: 3px; }
-
-    .controls-row {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: flex-end;
+    .panel-header h2 {
+      font-size: 21px;
+      color: var(--primary-900);
+    }
+    .panel-header p {
+      font-size: 13.5px;
+      color: var(--slate-500);
+      margin-top: 4px;
+    }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 18px;
     }
     .field {
       display: flex;
       flex-direction: column;
-      gap: 5px;
-      flex: 1;
-      min-width: 180px;
+      gap: 6px;
     }
     .field label {
       font-size: 12px;
-      font-weight: 600;
-      color: var(--muted);
+      font-weight: 700;
+      color: var(--slate-700);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
-    .field input, .field select, .field textarea {
-      background: #0b1120;
-      border: 1px solid var(--border);
-      color: #fff;
-      padding: 10px 13px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-family: inherit;
-    }
-    .btn {
-      background: var(--emerald);
-      color: #052e16;
-      border: none;
-      padding: 11px 20px;
-      border-radius: 8px;
-      font-weight: 800;
-      font-size: 13px;
-      cursor: pointer;
-      transition: 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .btn:hover { background: #34d399; }
-    .btn-blue { background: var(--blue); color: #fff; }
-    .btn-blue:hover { background: #2563eb; }
-    .btn-outline {
-      background: var(--panel-alt);
-      color: #e2e8f0;
-      border: 1px solid var(--border);
-    }
-    .btn-outline:hover { background: #334155; }
-
-    /* Lead / Gig Cards */
-    .grid-cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-      gap: 16px;
-    }
-    .item-card {
-      background: #0d1322;
+    .pitch-box {
+      background: var(--surface-cream);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .item-card.hot { border-color: rgba(245, 158, 11, 0.6); }
-    .score-pill {
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-    }
-    .score-high { background: rgba(244, 63, 94, 0.2); color: #fda4af; border: 1px solid rgba(244, 63, 94, 0.4); }
-    .score-med { background: rgba(245, 158, 11, 0.2); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.4); }
-
-    .issue-list {
-      list-style: none;
-      background: rgba(15, 23, 42, 0.7);
-      border-left: 3px solid var(--amber);
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 12px;
-      color: #cbd5e1;
-    }
-    .issue-list li { margin-bottom: 3px; }
-    .meta-line { font-size: 12px; color: var(--muted); word-break: break-all; }
-    .meta-line strong { color: #e2e8f0; }
-
-    .pitch-box {
-      background: #070b14;
-      border: 1px solid var(--border);
-      border-radius: 8px;
       padding: 14px;
-      font-family: monospace;
-      font-size: 12.5px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
       white-space: pre-wrap;
-      color: #cbd5e1;
-      margin-top: 8px;
+      color: var(--slate-900);
       max-height: 240px;
       overflow-y: auto;
+      margin: 10px 0 12px;
     }
-    .status-banner {
-      padding: 12px 16px;
-      border-radius: 10px;
-      background: rgba(59, 130, 246, 0.15);
-      border: 1px solid rgba(59, 130, 246, 0.4);
-      font-size: 13px;
-      margin-bottom: 16px;
+
+    /* Modal for Pitch Preview */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 31, 28, 0.55);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
       display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
-    .routine-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-    }
-    .routine-step {
-      background: var(--panel-alt);
+    .modal-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      max-width: 640px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
     }
-    .routine-step h4 { color: var(--emerald); font-size: 14px; margin-bottom: 6px; }
-    .routine-step p { font-size: 13px; color: #cbd5e1; }
+
+    @media (max-width: 768px) {
+      .sites-grid { grid-template-columns: 1fr; }
+      header { padding: 14px 4%; }
+    }
   </style>
 </head>
 <body>
 
-  <div class="topbar">
-    <div class="brand">
-      <div class="brand-icon">⚡</div>
-      <div>
-        <h1>DAILY CASHFLOW COMMAND CENTER</h1>
-        <p>5-Engine Local PC Money-Making Machine • Zero Paid APIs Required</p>
-      </div>
+  <!-- Top System Status Bar (Nielsen Heuristic #1: Visibility of System Status) -->
+  <div class="utility-bar">
+    <div>
+      <span class="status-dot"></span>
+      <strong>SYSTEM ONLINE:</strong> Daniel Thairu Designs Local Engine (`localhost:3050`) • CS &amp; Professional Aesthetics Since 2017
     </div>
-    <div class="hw-badges">
-      <div class="hw-badge">CPU: <span>Intel i7-13620H (16T)</span></div>
-      <div class="hw-badge">GPU: <span>RTX 4060 (8GB VRAM)</span></div>
-      <div class="hw-badge">Media: <span>FFmpeg Ready</span></div>
-      <div class="hw-badge">Payments: <span>Stripe • Wise • M-Pesa • Upwork</span></div>
+    <div style="display:flex; gap:18px; align-items:center;">
+      <span>🔒 Watermark Asset: <strong>Active (`watermark.png`)</strong></span>
+      <span>☁️ GitHub Pages: <strong>Connected (`ThairuMwangi`)</strong></span>
     </div>
   </div>
 
-  <div class="container">
-    <!-- Daily Execution Routine Banner -->
-    <div class="panel" style="background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%); border-color: #059669;">
-      <div class="panel-header" style="margin-bottom: 12px;">
-        <div>
-          <h2>🎯 Your Daily $200–$500 Execution Blueprint (How to Run This Machine Every Morning)</h2>
-          <p>Do not jump around randomly. Follow this 3-block daily schedule to generate fast cashflow today while building recurring income:</p>
-        </div>
+  <!-- Main Sticky Navigation Header -->
+  <header>
+    <a href="#" class="brand" onclick="switchTab('manager'); return false;">
+      <div class="brand-mark">DT</div>
+      <div>
+        <div class="brand-title">Daniel Thairu Designs</div>
+        <div class="brand-sub">Client Website &amp; Lead Command Center</div>
       </div>
-      <div class="routine-grid">
-        <div class="routine-step">
-          <h4>1. Morning (90 Mins): Website & Audit Drops ($250–$500/sale)</h4>
-          <p>Use <strong>Engine 1 & 2</strong> below to pull 20 local businesses in a high-ticket niche (Dentists, Clinics, Plumbers, Auto Repair). Click <em>"Generate Preview Site"</em> on 10 of them and send the live preview + WhatsApp/Call pitch. Closing just 1 out of 20 = <strong>$250–$500 in a day</strong>.</p>
+    </a>
+
+    <nav class="nav-tabs" aria-label="Primary Admin Navigation">
+      <button class="nav-tab active" id="tabBtn-manager" onclick="switchTab('manager')">
+        📋 Client Sites &amp; Watermark Manager <span class="tab-count" id="navSiteCount">0</span>
+      </button>
+      <button class="nav-tab" id="tabBtn-builder" onclick="switchTab('builder')">
+        ⚡ Build / Edit Client Website
+      </button>
+      <button class="nav-tab" id="tabBtn-leads" onclick="switchTab('leads')">
+        🔍 Local Lead Hunter
+      </button>
+      <button class="nav-tab" id="tabBtn-gigs" onclick="switchTab('gigs')">
+        🎯 Design &amp; Tech Gig Sniper
+      </button>
+    </nav>
+
+    <div style="display:flex; gap:10px; align-items:center;">
+      <button class="btn btn-outline btn-sm" onclick="openNewSiteBuilder()">➕ New Client Site</button>
+      <button class="btn btn-primary btn-sm" id="btnGlobalPublish" onclick="publishToGitHubPages()">
+        ☁️ Publish All to GitHub Pages
+      </button>
+    </div>
+  </header>
+
+  <!-- Template 1 Botanical Forest Hero Overview -->
+  <section class="admin-hero">
+    <div class="admin-hero-inner">
+      <div>
+        <div class="hero-eyebrow">✦ NIELSEN HEURISTIC ADMIN CONSOLE • TEMPLATE 1 EDITION</div>
+        <h1>Control Every Client Preview, <span class="serif-italic">Watermark &amp; Pitch</span> in One Place.</h1>
+        <p>Toggle your <strong>Daniel Thairu Designs</strong> anti-clone watermark ON or OFF in 1 click, switch architectural styles live, push updates to GitHub Pages, and launch personalized WhatsApp pitches.</p>
+      </div>
+      <div class="kpi-row">
+        <div class="kpi-card">
+          <strong id="kpiTotalSites">0</strong>
+          <span>Total Client Sites</span>
         </div>
-        <div class="routine-step">
-          <h4>2. Midday (60 Mins): Live Gig Sniper ($50–$200/day)</h4>
-          <p>Open <strong>Engine 3 (Live Gig Sniper)</strong> to see people hiring right now for scraping, spreadsheets, websites, or video edits. Click <em>"Copy Prompt for Antigravity"</em>, paste it into our chat so I build the sample in 5 minutes, and send them the finished sample to win the gig immediately.</p>
+        <div class="kpi-card">
+          <strong id="kpiProtectedSites">0</strong>
+          <span>🔒 Watermark ON</span>
         </div>
-        <div class="routine-step">
-          <h4>3. Afternoon (45 Mins): Sell Lead Packs & RTX 4060 Clips</h4>
-          <p>Every search in Engine 1 exports a verified <strong>B2B CSV Lead Pack</strong> you can sell to marketing agencies or local brokers. Or use <strong>Engine 4 (RTX 4060 Media Studio)</strong> to clip podcasts into 10 vertical Shorts for creators at $50–$100/pack.</p>
+        <div class="kpi-card">
+          <strong id="kpiUnlockedSites">0</strong>
+          <span>🔓 Paid / Unlocked</span>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Navigation Tabs -->
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('leads')">🔍 Engine 1: Local Business Lead Hunter & Auditor</button>
-      <button class="tab-btn" onclick="switchTab('sitebuilder')">⚡ Engine 2: Instant Client Website & Pitch Studio</button>
-      <button class="tab-btn" onclick="switchTab('gigs')">🎯 Engine 3: Live Freelance Gig Sniper</button>
-      <button class="tab-btn" onclick="switchTab('gpu')">🎬 Engine 4 & 5: RTX 4060 Video Factory + B2B Templates</button>
+  <!-- Main Workspace Container -->
+  <main class="container">
+
+    <!-- ================================================================== -->
+    <!-- TAB 1: CLIENT SITES & WATERMARK CONTROL MANAGER (DEFAULT)          -->
+    <!-- ================================================================== -->
+    <div id="tab-manager" class="tab-panel active">
+      <div class="toolbar-card">
+        <div class="search-box">
+          <input type="text" id="siteSearchInput" placeholder="🔎 Search your generated client websites by name, phone, or location..." oninput="renderSitesGrid()" />
+        </div>
+        <div class="filter-pills">
+          <button class="filter-pill active" id="filter-all" onclick="setSiteFilter('all')">All Sites</button>
+          <button class="filter-pill" id="filter-protected" onclick="setSiteFilter('protected')">🔒 Watermark ON (Preview)</button>
+          <button class="filter-pill" id="filter-paid" onclick="setSiteFilter('paid')">🔓 Watermark OFF (Paid)</button>
+        </div>
+      </div>
+
+      <div id="sitesGrid" class="sites-grid">
+        <!-- Populated dynamically via loadManagedSites() -->
+      </div>
     </div>
 
-    <div id="statusBanner" class="status-banner"></div>
-
     <!-- ================================================================== -->
-    <!-- TAB 1: LOCAL BUSINESS LEAD HUNTER & LIVE WEBSITE AUDITOR           -->
+    <!-- TAB 2: BUILD / EDIT CLIENT WEBSITE STUDIO                          -->
     <!-- ================================================================== -->
-    <div id="tab-leads" class="tab-panel active">
+    <div id="tab-builder" class="tab-panel">
       <div class="panel">
         <div class="panel-header">
           <div>
-            <h2>🔍 Engine 1: Live Local Business Lead Hunter & Website Gap Auditor</h2>
-            <p>Finds real businesses in any city worldwide, checks if their website is missing, broken, or not mobile-friendly, and scores them for an instant $250–$500 pitch.</p>
+            <h2 id="builderHeading">⚡ Create or Customize a Client Website</h2>
+            <p>Fill in the client details below, choose one of the 3 verified high-end design architectures, and set Watermark Protection.</p>
           </div>
-          <div id="csvDownloadContainer"></div>
+          <button class="btn btn-outline btn-sm" onclick="resetBuilderForm()">🔄 Reset Form</button>
         </div>
 
-        <div class="controls-row">
-          <div class="field">
-            <label>Target City & Country / State</label>
-            <input type="text" id="leadCity" value="San Francisco, CA" placeholder="e.g. San Francisco CA, Nairobi, Austin TX, London" />
-          </div>
-          <div class="field">
-            <label>High-Ticket Business Niche</label>
-            <select id="leadCategory">
-              <option value="dentist">🦷 Dentists & Dental Clinics ($300-$600/site)</option>
-              <option value="clinic">🏥 Medical Clinics & Doctors ($300-$600/site)</option>
-              <option value="car_repair">🔧 Auto Repair & Mechanics ($250-$450/site)</option>
-              <option value="plumber_trade">🛠️ Plumbers, Electricians & Contractors ($300-$500/site)</option>
-              <option value="real_estate">🏢 Real Estate & Property Agents ($350-$700/site)</option>
-              <option value="lawyer">⚖️ Law Firms & Notaries ($400-$800/site)</option>
-              <option value="accountant">📊 Accountants & Tax Advisors ($300-$600/site)</option>
-              <option value="hotel">🏨 Hotels & Guest Houses ($350-$700/site)</option>
-              <option value="salon">💇‍♀️ Beauty Salons & Med-Spas ($200-$400/site)</option>
-              <option value="gym">🏋️ Gyms & Fitness Centers ($250-$500/site)</option>
-            </select>
-          </div>
-          <div class="field" style="max-width: 130px;">
-            <label>Max Leads</label>
-            <select id="leadLimit">
-              <option value="12">12 Leads</option>
-              <option value="20" selected>20 Leads</option>
-              <option value="30">30 Leads</option>
-            </select>
-          </div>
-          <button class="btn" onclick="searchLeads()" id="btnSearchLeads">🚀 Hunt & Audit Live Leads</button>
-        </div>
-      </div>
+        <input type="hidden" id="sbCustomSlug" value="" />
 
-      <div id="leadsResults" class="grid-cards"></div>
-    </div>
-
-    <!-- ================================================================== -->
-    <!-- TAB 2: INSTANT CLIENT WEBSITE & PITCH STUDIO                       -->
-    <!-- ================================================================== -->
-    <div id="tab-sitebuilder" class="tab-panel">
-      <div class="panel">
-        <div class="panel-header">
-          <div>
-            <h2>⚡ Engine 2: 1-Click Client Website Generator & Closing Scripts</h2>
-            <p>Generates a complete, mobile-responsive HTML website customized for your prospect + ready-to-send WhatsApp, Email, and Phone Call closing scripts.</p>
-          </div>
-        </div>
-
-        <div class="controls-row" style="margin-bottom: 14px;">
+        <div class="form-grid">
           <div class="field">
-            <label>Business Name</label>
-            <input type="text" id="sbName" placeholder="e.g. PrimeCare Dental Clinic" value="PrimeCare Dental Studio" />
+            <label>Client / Business Name</label>
+            <input type="text" id="sbName" placeholder="e.g. Summit Dental Care" value="Summit Dental Care" />
           </div>
           <div class="field">
             <label>Industry / Niche</label>
             <select id="sbCategory">
               <option value="dentist">Dentist / Dental Clinic</option>
-              <option value="clinic">Medical Clinic / Doctor</option>
-              <option value="plumber_trade">Plumber / Contractor / Home Service</option>
-              <option value="car_repair">Auto Repair / Mechanic</option>
+              <option value="clinic">Medical Clinic / Doctor / Healthcare</option>
+              <option value="plumber_trade">Contractor / Home Services / Trade</option>
+              <option value="car_repair">Auto Repair / Car Detailing</option>
               <option value="real_estate">Real Estate / Property Agency</option>
-              <option value="default">General Professional Business</option>
+              <option value="default">General Professional Practice</option>
             </select>
           </div>
           <div class="field">
-            <label>City / Location</label>
-            <input type="text" id="sbCity" placeholder="e.g. Westlands, Nairobi" value="Nairobi" />
+            <label>City / Area</label>
+            <input type="text" id="sbCity" placeholder="e.g. Kilimani, Nairobi" value="Kilimani, Nairobi" />
           </div>
           <div class="field">
-            <label>Design Architecture & Photo Pool</label>
+            <label>Street / Building Address</label>
+            <input type="text" id="sbAddress" placeholder="e.g. Ring Road Kilimani, Near Yaya Centre" value="Ring Road Kilimani, Nairobi" />
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label>Client WhatsApp / Phone Number</label>
+            <input type="text" id="sbPhone" placeholder="e.g. +254 743 111 999" value="+254 743 111 999" />
+          </div>
+          <div class="field">
+            <label>Client Email (Optional)</label>
+            <input type="text" id="sbEmail" placeholder="info@clinic.co.ke" />
+          </div>
+          <div class="field">
+            <label>Architectural Design Style</label>
             <select id="sbVariant">
-              <option value="auto">🎲 Auto-Rotate Unique Style & Photos</option>
-              <option value="0">🌿 Style 1: Botanical Forest & Circular Collage</option>
-              <option value="1">🏛️ Style 2: Nordic Navy & Arch-Frame Editorial</option>
-              <option value="2">🌊 Style 3: Ocean Teal & Staggered Dual-Column</option>
+              <option value="0">🌿 Style 1: Botanical Forest &amp; Circular Collage</option>
+              <option value="1">🏛️ Style 2: Nordic Royal Navy &amp; Arch-Frame Editorial</option>
+              <option value="2">🌊 Style 3: Ocean Teal &amp; Staggered Dual-Column</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Daniel Thairu Designs Watermark</label>
+            <select id="sbWatermark">
+              <option value="true">🔒 ON — Protected Client Preview (25% Watermark)</option>
+              <option value="false">🔓 OFF — Paid Final Client Handover (Clean)</option>
             </select>
           </div>
         </div>
 
-        <div class="controls-row">
-          <div class="field">
-            <label>Client Phone / WhatsApp Number</label>
-            <input type="text" id="sbPhone" placeholder="e.g. +254 712 345 678" value="+254 700 123 456" />
+        <div class="form-grid">
+          <div class="field" style="grid-column: 1 / -1;">
+            <label>Audit Observation (Included in WhatsApp &amp; Email Pitch)</label>
+            <input type="text" id="sbIssue" value="you don't currently have a dedicated mobile booking website with 1-click WhatsApp scheduling linked to your listing" />
           </div>
-          <div class="field">
-            <label>Client Email (Optional)</label>
-            <input type="text" id="sbEmail" placeholder="info@business.com" />
-          </div>
-          <div class="field">
-            <label>Anti-Clone Watermark Protection</label>
-            <select id="sbWatermark">
-              <option value="true">🔒 Protected Preview (Daniel Thairu Designs 25% Watermark ON)</option>
-              <option value="false">🔓 Paid Final Handover (Watermark OFF)</option>
-            </select>
-          </div>
-          <div class="field">
-            <label>Detected Audit Issue (Used in Pitch)</label>
-            <input type="text" id="sbIssue" value="your business doesn't have a mobile booking page with instant WhatsApp scheduling" />
-          </div>
-          <button class="btn" onclick="generateCustomSite()">⚡ Build Live Preview Website & Pitches</button>
+        </div>
+
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:8px;">
+          <button class="btn btn-primary" onclick="generateCustomSite()">⚡ Save &amp; Build Client Website Now</button>
+          <button class="btn btn-outline" onclick="switchTab('manager')">← Back to All Client Sites</button>
         </div>
       </div>
 
       <div id="siteOutputPanel" class="panel" style="display:none;">
         <div class="panel-header">
           <div>
-            <h2 id="siteOutputTitle">✅ Client Preview Site Ready!</h2>
-            <p>Click <strong>"☁️ Publish Live to GitHub Pages"</strong> so the public HTTPS link works on the client's phone anywhere in the world, then send the pitch below:</p>
+            <h2 id="siteOutputTitle">✅ Client Website Built!</h2>
+            <p>Preview it locally, push to GitHub Pages so the link works on their phone, and send the WhatsApp pitch:</p>
           </div>
           <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <a id="btnOpenPreview" href="#" target="_blank" class="btn btn-blue">🌐 Local Preview ↗</a>
-            <button id="btnPublishGh" onclick="publishToGitHubPages()" class="btn btn-outline">☁️ Publish Live to GitHub Pages</button>
-            <a id="btnSendWa" href="#" target="_blank" class="btn">💬 Open in WhatsApp & Send</a>
+            <a id="btnOpenPreview" href="#" target="_blank" class="btn btn-outline">🌐 Open Local Preview ↗</a>
+            <button onclick="publishToGitHubPages()" class="btn btn-soft">☁️ Push Live to GitHub Pages</button>
+            <a id="btnSendWa" href="#" target="_blank" class="btn btn-primary">💬 Send in WhatsApp ↗</a>
           </div>
         </div>
 
-        <div class="grid-cards">
-          <div class="item-card">
-            <div>
-              <strong>💬 WhatsApp / SMS Outreach Pitch</strong>
-              <p class="meta-line">Send with a screenshot of their new preview website:</p>
-              <div id="pitchWa" class="pitch-box"></div>
-            </div>
-            <button class="btn btn-outline" onclick="copyText('pitchWa')">📋 Copy WhatsApp Pitch</button>
+        <div class="form-grid">
+          <div class="field">
+            <label>💬 WhatsApp Pitch (With Your CS &amp; 2017 Design Intro)</label>
+            <div id="pitchWa" class="pitch-box"></div>
+            <button class="btn btn-outline btn-sm" onclick="copyText('pitchWa')">📋 Copy WhatsApp Pitch</button>
           </div>
-
-          <div class="item-card">
-            <div>
-              <strong>📞 30-Second High-Close Phone Script</strong>
-              <p class="meta-line">Call the business number and read this word-for-word:</p>
-              <div id="pitchCall" class="pitch-box"></div>
-            </div>
-            <button class="btn btn-outline" onclick="copyText('pitchCall')">📋 Copy Phone Script</button>
+          <div class="field">
+            <label>✉️ Direct Email Pitch</label>
+            <div id="pitchEmail" class="pitch-box"></div>
+            <button class="btn btn-outline btn-sm" onclick="copyText('pitchEmail')">📋 Copy Email Pitch</button>
           </div>
-
-          <div class="item-card">
-            <div>
-              <strong>✉️ Cold Email Pitch</strong>
-              <p class="meta-line">Use if emailing decision makers directly:</p>
-              <div id="pitchEmail" class="pitch-box"></div>
-            </div>
-            <button class="btn btn-outline" onclick="copyText('pitchEmail')">📋 Copy Email Pitch</button>
+          <div class="field">
+            <label>📞 30-Second Phone Script</label>
+            <div id="pitchCall" class="pitch-box"></div>
+            <button class="btn btn-outline btn-sm" onclick="copyText('pitchCall')">📋 Copy Phone Script</button>
           </div>
         </div>
       </div>
     </div>
 
     <!-- ================================================================== -->
-    <!-- TAB 3: LIVE FREELANCE GIG SNIPER                                   -->
+    <!-- TAB 3: LOCAL BUSINESS LEAD HUNTER & AUDITOR                        -->
+    <!-- ================================================================== -->
+    <div id="tab-leads" class="tab-panel">
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h2>🔍 Local Business Lead Hunter &amp; Website Auditor</h2>
+            <p>Finds real businesses in any city, checks if their website is missing or broken, and builds a tailored preview site in 1 click.</p>
+          </div>
+          <a id="csvDownloadBtn" href="#" class="btn btn-soft btn-sm" style="display:none;" download>📥 Download Verified CSV Lead Pack</a>
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label>Target City / Area</label>
+            <input type="text" id="leadCity" value="Nairobi" placeholder="e.g. Nairobi, Westlands, San Francisco, London" />
+          </div>
+          <div class="field">
+            <label>Business Category</label>
+            <select id="leadCategory">
+              <option value="dentist">🦷 Dentists &amp; Dental Clinics</option>
+              <option value="clinic">🏥 Private Medical Clinics &amp; Doctors</option>
+              <option value="plumber_trade">🔧 Plumbers, HVAC &amp; Contractors</option>
+              <option value="car_repair">🚗 Auto Repair &amp; Car Detailing</option>
+              <option value="real_estate">🏢 Real Estate &amp; Property Managers</option>
+              <option value="lawyer">⚖️ Law Firms &amp; Advocates</option>
+              <option value="beauty_salon">💇‍♀️ MedSpas, Salons &amp; Aesthetics</option>
+              <option value="restaurant">🍽️ Restaurants &amp; Cafes</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Max Leads to Audit</label>
+            <select id="leadLimit">
+              <option value="12">12 Leads (Fastest)</option>
+              <option value="20" selected>20 Leads</option>
+              <option value="30">30 Leads</option>
+            </select>
+          </div>
+          <div class="field" style="justify-content:flex-end;">
+            <button id="btnHuntLeads" class="btn btn-primary" onclick="huntLeads()">🚀 Hunt &amp; Audit Live Leads</button>
+          </div>
+        </div>
+
+        <div id="leadsGrid" class="sites-grid" style="margin-top:20px;"></div>
+      </div>
+    </div>
+
+    <!-- ================================================================== -->
+    <!-- TAB 4: LIVE DESIGN & TECH GIG SNIPER                               -->
     <!-- ================================================================== -->
     <div id="tab-gigs" class="tab-panel">
       <div class="panel">
         <div class="panel-header">
           <div>
-            <h2>🎯 Engine 3: Real-Time Design & Tech Gig Sniper (YC / SF Startups + Remote Boards)</h2>
-            <p>Searches live San Francisco YC startup founders (with direct emails!), HN Freelance contracts, RemoteOK, and WeWorkRemotely. Click <strong>"Copy Antigravity Build Prompt"</strong> on any gig and paste it to me in chat!</p>
+            <h2>🎯 Live Design &amp; Tech Gig Sniper (YC Startups, HN, RemoteOK, WWR)</h2>
+            <p>Search live design, UI/UX, and web development contracts by city or remote, with direct founder emails and application links.</p>
           </div>
         </div>
-        <div class="controls-row">
+
+        <div class="form-grid">
           <div class="field">
-            <label>Skill / Gig Keyword</label>
-            <input type="text" id="gigQuery" value="design" placeholder="e.g. design, UI/UX, figma, frontend, web, video" />
+            <label>Skill / Keyword</label>
+            <input type="text" id="gigQuery" value="design" placeholder="e.g. design, website, frontend, react, figma" />
           </div>
           <div class="field">
-            <label>Target City / Region</label>
-            <input type="text" id="gigLocation" value="San Francisco" placeholder="e.g. San Francisco, New York, Remote, London" />
+            <label>Target City / Location</label>
+            <input type="text" id="gigLocation" value="Nairobi" placeholder="e.g. Nairobi, San Francisco, New York, Remote" />
           </div>
-          <button class="btn" onclick="loadLiveGigs()" id="btnLoadGigs">🔄 Search Live Design & Tech Gigs</button>
-        </div>
-      </div>
-
-      <div id="gigsResults" class="grid-cards"></div>
-    </div>
-
-    <!-- ================================================================== -->
-    <!-- TAB 4: RTX 4060 VIDEO FACTORY + DIGITAL PRODUCT TEMPLATES          -->
-    <!-- ================================================================== -->
-    <div id="tab-gpu" class="tab-panel">
-      <div class="panel">
-        <div class="panel-header">
-          <div>
-            <h2>🎬 Engine 4: Local RTX 4060 + FFmpeg Video Repurposing Pipeline ($0 API Cost)</h2>
-            <p>Your PC has an <strong>NVIDIA GeForce RTX 4060 (8GB VRAM)</strong> and <strong>FFmpeg</strong> installed. You can charge YouTubers, podcasters, coaches, and churches $50–$150 to turn 1 long video into 10 vertical Shorts/Reels with captions.</p>
+          <div class="field" style="justify-content:flex-end;">
+            <button id="btnFetchGigs" class="btn btn-primary" onclick="loadLiveGigs()">🔄 Search Live Gigs</button>
           </div>
         </div>
 
-        <div class="grid-cards">
-          <div class="item-card">
-            <div>
-              <strong>⚡ 1. Instant 9:16 Vertical Shorts Converter (FFmpeg GPU Accelerated)</strong>
-              <p class="meta-line">Converts any 16:9 landscape video clip into a 1080x1920 vertical TikTok/Reel with a blurred background + crisp center foreground using your RTX 4060 NVENC encoder:</p>
-              <div id="cmdFfmpegVertical" class="pitch-box">ffmpeg -i input.mp4 -vf "split[original][copy];[copy]scale=-1:1920,crop=1080:1920,boxblur=25:5[blurred];[original]scale=1080:-1[scaled];[blurred][scaled]overlay=(W-w)/2:(H-h)/2" -c:v h264_nvenc -preset p4 -b:v 6M -c:a aac output_vertical_short.mp4</div>
-            </div>
-            <button class="btn btn-outline" onclick="copyText('cmdFfmpegVertical')">📋 Copy RTX 4060 FFmpeg Command</button>
-          </div>
-
-          <div class="item-card">
-            <div>
-              <strong>🎙️ 2. Local GPU Whisper Auto-Transcriber & SRT Subtitle Generator</strong>
-              <p class="meta-line">Run OpenAI Whisper locally on your RTX 4060 for $0.00 to transcribe client videos or audio gigs on Fiverr/Upwork in seconds:</p>
-              <div id="cmdWhisper" class="pitch-box">pip install faster-whisper
-python -c "from faster_whisper import WhisperModel; m = WhisperModel('small', device='cuda', compute_type='float16'); segments, _ = m.transcribe('input.mp4'); print('\n'.join([f'[{s.start:.1f}s -> {s.end:.1f}s] {s.text}' for s in segments]))"</div>
-            </div>
-            <button class="btn btn-outline" onclick="copyText('cmdWhisper')">📋 Copy Local GPU Whisper Command</button>
-          </div>
-
-          <div class="item-card">
-            <div>
-              <strong>📊 Engine 5: Custom B2B Spreadsheet / Calculator Generator</strong>
-              <p class="meta-line">Want to sell a custom Excel Tracker on Gumroad/Payhip or deliver a spreadsheet gig? Copy this prompt and send it to me in our Antigravity chat:</p>
-              <div id="cmdExcelPrompt" class="pitch-box">Build a complete, multi-tab Excel (.xlsx) business product with formulas, conditional formatting, and a dashboard tab for [NICHE: e.g. Airbnb Hosts / Construction Contractors / Local Retail Inventory], plus write the Gumroad/Etsy product listing title, bullet points, and pricing tiers.</div>
-            </div>
-            <button class="btn btn-outline" onclick="copyText('cmdExcelPrompt')">📋 Copy Antigravity Product Prompt</button>
-          </div>
-        </div>
+        <div id="gigsGrid" class="sites-grid" style="margin-top:20px;"></div>
       </div>
     </div>
 
+  </main>
+
+  <!-- Modal for viewing/copying a client's full WhatsApp pitch -->
+  <div class="modal-backdrop" id="pitchModal" onclick="if(event.target===this) closePitchModal()">
+    <div class="modal-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h3 id="modalTitle" style="color:var(--primary-900); font-size:19px;">💬 WhatsApp Pitch</h3>
+        <button class="btn btn-outline btn-sm" onclick="closePitchModal()">✕ Close</button>
+      </div>
+      <p style="font-size:13px; color:var(--slate-500);">Includes your Computer Science &amp; Professional Aesthetics (since 2017) introduction + watermark note:</p>
+      <div id="modalPitchText" class="pitch-box"></div>
+      <div style="display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap;">
+        <button class="btn btn-outline" onclick="copyText('modalPitchText')">📋 Copy Message Text</button>
+        <a id="modalWaLink" href="#" target="_blank" class="btn btn-primary">💬 Open in WhatsApp &amp; Send ↗</a>
+      </div>
+    </div>
   </div>
 
+  <!-- Floating Feedback Toast -->
+  <div id="toastBar" class="toast-bar"></div>
+
   <script>
+    let allSites = [];
+    let currentFilter = 'all';
+
+    function showToast(msg) {
+      const el = document.getElementById('toastBar');
+      el.innerText = msg;
+      el.style.display = 'inline-flex';
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => { el.style.display = 'none'; }, 4200);
+    }
+
     function switchTab(tabId) {
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
       document.getElementById('tab-' + tabId).classList.add('active');
-      const idx = { leads: 0, sitebuilder: 1, gigs: 2, gpu: 3 }[tabId] || 0;
-      document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+      const btn = document.getElementById('tabBtn-' + tabId);
+      if (btn) btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function showBanner(msg, isError = false) {
-      const el = document.getElementById('statusBanner');
-      el.style.display = 'block';
-      el.style.background = isError ? 'rgba(244, 63, 94, 0.18)' : 'rgba(16, 185, 129, 0.16)';
-      el.style.borderColor = isError ? '#f43f5e' : '#10b981';
-      el.innerHTML = msg;
+    function setSiteFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      document.getElementById('filter-' + filter).classList.add('active');
+      renderSitesGrid();
     }
 
-    function copyText(elementId) {
-      const txt = document.getElementById(elementId).innerText;
-      navigator.clipboard.writeText(txt);
-      showBanner('✅ Copied to clipboard!');
-    }
-
-    // Engine 1: Search & Audit Leads
-    async function searchLeads() {
-      const city = document.getElementById('leadCity').value.trim();
-      const category = document.getElementById('leadCategory').value;
-      const limit = document.getElementById('leadLimit').value;
-      const btn = document.getElementById('btnSearchLeads');
-      const container = document.getElementById('leadsResults');
-
-      btn.disabled = true;
-      btn.innerText = '⏳ Scanning City & Auditing Websites...';
-      showBanner(`🔍 Searching OpenStreetMap & auditing live business websites in <strong>${city}</strong>... (takes ~5-12 seconds)`);
-      container.innerHTML = '';
-
+    // Load all generated client sites and populate the Manager Grid + KPIs
+    async function loadManagedSites() {
       try {
-        const res = await fetch('/api/leads/search', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ city, category, limit })
-        });
+        const res = await fetch('/api/sites/list');
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Failed to fetch leads');
-
-        showBanner(`✅ Found & audited <strong>${data.leads.length} real businesses</strong> in ${data.city}! Ranked by highest sales opportunity.`);
-
-        if (data.csvExport) {
-          document.getElementById('csvDownloadContainer').innerHTML = `
-            <a href="${data.csvExport.downloadUrl}" class="btn btn-blue" download>📥 Download Verified CSV Lead Pack (${data.leads.length} Leads)</a>
-          `;
-        }
-
-        if (data.leads.length === 0) {
-          container.innerHTML = `<div class="panel">No businesses found for that exact filter. Try a broader city name (e.g. "Nairobi", "London", "Houston") or another category.</div>`;
-          return;
-        }
-
-        container.innerHTML = data.leads.map((l, i) => {
-          const score = l.audit?.opportunityScore || 50;
-          const isHot = score >= 80;
-          const issuesHtml = (l.audit?.issues || []).map(iss => `<li>• ${iss}</li>`).join('');
-          const safeLeadJson = encodeURIComponent(JSON.stringify(l));
-
-          return `
-            <div class="item-card ${isHot ? 'hot' : ''}">
-              <div>
-                <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px;">
-                  <strong style="font-size:16px;">${l.name}</strong>
-                  <span class="score-pill ${isHot ? 'score-high' : 'score-med'}">
-                    ${isHot ? '🔥 ' : ''}${score}/100 Opportunity
-                  </span>
-                </div>
-                <p class="meta-line">📍 ${l.address || l.city}</p>
-                <p class="meta-line">📞 <strong>${l.phone || 'No phone listed (Walk-in / Social)'}</strong> ${l.email ? `• ✉️ ${l.email}` : ''}</p>
-                <p class="meta-line" style="margin-bottom:10px;">
-                  🌐 Website: ${l.website ? `<a href="${l.audit.url || l.website}" target="_blank" style="color:#38bdf8;">${l.website}</a> (${l.audit.status})` : '<strong style="color:#fda4af;">NONE LISTED</strong>'}
-                </p>
-                <ul class="issue-list">${issuesHtml}</ul>
-                <p class="meta-line" style="margin-top:8px; color:#34d399;">💡 <strong>Pitch:</strong> ${l.audit?.recommendedOffer}</p>
-              </div>
-              <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
-                <button class="btn" style="width:100%; justify-content:center;" onclick="oneClickBuildFromLead('${safeLeadJson}')">
-                  ⚡ 1-Click Build Preview Website & Pitch
-                </button>
-              </div>
-            </div>
-          `;
-        }).join('');
+        allSites = data.sites || [];
+        updateKpis();
+        renderSitesGrid();
       } catch (err) {
-        showBanner(`❌ Error: ${err.message}`, true);
-      } finally {
-        btn.disabled = false;
-        btn.innerText = '🚀 Hunt & Audit Live Leads';
+        showToast('⚠️ Could not load sites list: ' + err.message);
       }
     }
 
-    async function oneClickBuildFromLead(encodedLead) {
-      const lead = JSON.parse(decodeURIComponent(encodedLead));
-      document.getElementById('sbName').value = lead.name || '';
-      document.getElementById('sbCategory').value = lead.category || 'default';
-      document.getElementById('sbCity').value = lead.city || '';
-      document.getElementById('sbPhone').value = lead.phone || '+1 415 555 0199';
-      document.getElementById('sbEmail').value = lead.email || '';
-      document.getElementById('sbIssue').value = (lead.audit?.issues || [])[0] || 'your business is missing a modern mobile booking website';
-
-      switchTab('sitebuilder');
-      await generateCustomSite();
+    function updateKpis() {
+      const total = allSites.length;
+      const protectedCount = allSites.filter(s => s.watermark !== false).length;
+      const unlockedCount = total - protectedCount;
+      document.getElementById('navSiteCount').innerText = total;
+      document.getElementById('kpiTotalSites').innerText = total;
+      document.getElementById('kpiProtectedSites').innerText = protectedCount;
+      document.getElementById('kpiUnlockedSites').innerText = unlockedCount;
     }
 
-    // Engine 2: Generate Client Website + Pitches
+    function renderSitesGrid() {
+      const grid = document.getElementById('sitesGrid');
+      const q = (document.getElementById('siteSearchInput').value || '').toLowerCase().trim();
+
+      const filtered = allSites.filter(s => {
+        if (currentFilter === 'protected' && s.watermark === false) return false;
+        if (currentFilter === 'paid' && s.watermark !== false) return false;
+        if (!q) return true;
+        return (
+          (s.name || '').toLowerCase().includes(q) ||
+          (s.city || '').toLowerCase().includes(q) ||
+          (s.phone || '').toLowerCase().includes(q) ||
+          (s.slug || '').toLowerCase().includes(q)
+        );
+      });
+
+      if (!filtered.length) {
+        grid.innerHTML = `<div class="panel" style="grid-column:1/-1; text-align:center; padding:40px;">
+          <h3>No matching client websites found</h3>
+          <p style="color:var(--slate-500); margin:8px 0 16px;">Try clearing your search filter or click "New Client Site" to build one.</p>
+          <button class="btn btn-primary" onclick="openNewSiteBuilder()">➕ Build New Client Website</button>
+        </div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(s => {
+        const isWm = s.watermark !== false;
+        const vIdx = Number(s.variantIndex || 0);
+        const encodedSite = encodeURIComponent(JSON.stringify(s));
+
+        return `
+          <div class="site-card">
+            <div>
+              <div class="site-card-header">
+                <div>
+                  <div class="site-card-title">${s.name}</div>
+                  <div class="site-card-meta">📍 ${s.address || s.city} • 📞 <strong>${s.phone}</strong></div>
+                </div>
+                <span class="badge ${isWm ? 'badge-protected' : 'badge-paid'}">
+                  ${isWm ? '🔒 Watermark ON' : '🔓 Paid (Clean)'}
+                </span>
+              </div>
+
+              <!-- Direct Admin Controls (Watermark Toggle + Design Style Switcher) -->
+              <div class="control-box" style="margin-top:14px;">
+                <div class="control-row">
+                  <span class="control-label">🛡️ Protection:</span>
+                  <button class="btn btn-sm ${isWm ? 'btn-amber' : 'btn-soft'}" onclick="toggleSiteWatermark('${s.slug}', ${!isWm})">
+                    ${isWm ? '🔓 Remove Watermark (Mark Paid)' : '🔒 Re-Enable Watermark'}
+                  </button>
+                </div>
+
+                <div class="control-row">
+                  <span class="control-label">🎨 Design Style:</span>
+                  <select class="style-select" onchange="changeSiteVariant('${s.slug}', this.value)">
+                    <option value="0" ${vIdx === 0 ? 'selected' : ''}>🌿 Style 1: Botanical Forest</option>
+                    <option value="1" ${vIdx === 1 ? 'selected' : ''}>🏛️ Style 2: Nordic Royal Navy</option>
+                    <option value="2" ${vIdx === 2 ? 'selected' : ''}>🌊 Style 3: Ocean Teal</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="card-actions">
+              <a href="${s.previewUrl}" target="_blank" class="btn btn-outline btn-sm">🌐 Local Preview ↗</a>
+              <a href="${s.publicUrl}" target="_blank" class="btn btn-outline btn-sm">☁️ Live GitHub Link ↗</a>
+              <a href="${s.whatsappSendUrl || '#'}" target="_blank" class="btn btn-primary btn-sm">💬 Send WhatsApp ↗</a>
+              <button class="btn btn-soft btn-sm" onclick="openPitchModal('${encodedSite}')">📋 View / Copy Pitch</button>
+              <button class="btn btn-outline btn-sm card-actions-full" onclick="editExistingSite('${encodedSite}')">
+                ✏️ Edit Client Info, Phone or Address
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // 1-Click Toggle Watermark ON / OFF directly from any site card
+    async function toggleSiteWatermark(slug, newWatermarkState) {
+      showToast(newWatermarkState ? '🔒 Applying Daniel Thairu Designs watermark...' : '🔓 Removing watermark for paid handover...');
+      try {
+        const res = await fetch('/api/sites/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug, watermark: newWatermarkState })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Update failed');
+        showToast(`✅ "${data.name}" updated (${newWatermarkState ? '🔒 Watermark ON' : '🔓 Watermark OFF'}). Click "Publish All to GitHub Pages" to push live!`);
+        await loadManagedSites();
+      } catch (err) {
+        showToast('❌ Error: ' + err.message);
+      }
+    }
+
+    // 1-Click Switch Design Variant directly from any site card
+    async function changeSiteVariant(slug, newVariantIndex) {
+      showToast('🎨 Rebuilding client site with new architectural style & photo pool...');
+      try {
+        const res = await fetch('/api/sites/update', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ slug, variantIndex: Number(newVariantIndex) })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Style update failed');
+        showToast(`✅ "${data.name}" rebuilt with Style #${Number(newVariantIndex) + 1} (${data.variantLabel})!`);
+        await loadManagedSites();
+      } catch (err) {
+        showToast('❌ Error: ' + err.message);
+      }
+    }
+
+    function openPitchModal(encodedSite) {
+      const s = JSON.parse(decodeURIComponent(encodedSite));
+      document.getElementById('modalTitle').innerText = `💬 WhatsApp Pitch — ${s.name}`;
+      document.getElementById('modalPitchText').innerText = s.whatsappPitch || '';
+      document.getElementById('modalWaLink').href = s.whatsappSendUrl || '#';
+      document.getElementById('pitchModal').style.display = 'flex';
+    }
+
+    function closePitchModal() {
+      document.getElementById('pitchModal').style.display = 'none';
+    }
+
+    function editExistingSite(encodedSite) {
+      const s = JSON.parse(decodeURIComponent(encodedSite));
+      document.getElementById('builderHeading').innerText = `✏️ Editing "${s.name}"`;
+      document.getElementById('sbCustomSlug').value = s.slug || '';
+      document.getElementById('sbName').value = s.name || '';
+      document.getElementById('sbCategory').value = s.category || 'dentist';
+      document.getElementById('sbCity').value = s.city || '';
+      document.getElementById('sbAddress').value = s.address || s.city || '';
+      document.getElementById('sbPhone').value = s.phone || '';
+      document.getElementById('sbEmail').value = s.email || '';
+      document.getElementById('sbVariant').value = String(s.variantIndex ?? 0);
+      document.getElementById('sbWatermark').value = String(s.watermark !== false);
+      document.getElementById('sbIssue').value = (s.issues && s.issues[0]) || "you don't currently have a dedicated mobile booking website linked to your listing";
+      switchTab('builder');
+    }
+
+    function openNewSiteBuilder() {
+      resetBuilderForm();
+      switchTab('builder');
+    }
+
+    function resetBuilderForm() {
+      document.getElementById('builderHeading').innerText = '⚡ Create a New Client Website';
+      document.getElementById('sbCustomSlug').value = '';
+      document.getElementById('sbName').value = '';
+      document.getElementById('sbCity').value = 'Nairobi';
+      document.getElementById('sbAddress').value = 'Nairobi';
+      document.getElementById('sbPhone').value = '+254 700 000 000';
+      document.getElementById('sbEmail').value = '';
+      document.getElementById('sbVariant').value = '0';
+      document.getElementById('sbWatermark').value = 'true';
+    }
+
+    // Generate / Save Custom Client Site
     async function generateCustomSite() {
-      const varVal = document.getElementById('sbVariant').value;
-      const wmVal = document.getElementById('sbWatermark').value;
+      const name = document.getElementById('sbName').value.trim();
+      if (!name) {
+        showToast('⚠️ Please enter a Business / Clinic Name.');
+        return;
+      }
       const payload = {
-        name: document.getElementById('sbName').value.trim(),
+        customSlug: document.getElementById('sbCustomSlug').value.trim() || undefined,
+        name,
         category: document.getElementById('sbCategory').value,
         city: document.getElementById('sbCity').value.trim(),
+        address: document.getElementById('sbAddress').value.trim(),
         phone: document.getElementById('sbPhone').value.trim(),
         email: document.getElementById('sbEmail').value.trim(),
-        variantIndex: varVal === 'auto' ? undefined : Number(varVal),
-        watermark: wmVal === 'true',
+        variantIndex: Number(document.getElementById('sbVariant').value),
+        watermark: document.getElementById('sbWatermark').value === 'true',
         issues: [document.getElementById('sbIssue').value.trim()]
       };
 
@@ -682,100 +1137,178 @@ python -c "from faster_whisper import WhisperModel; m = WhisperModel('small', de
           body: JSON.stringify(payload)
         });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Failed to generate website');
+        if (!res.ok) throw new Error(data.error || 'Failed to build site');
 
         document.getElementById('siteOutputPanel').style.display = 'block';
-        document.getElementById('siteOutputTitle').innerText = `✅ Live Preview Built for "${payload.name}"`;
+        document.getElementById('siteOutputTitle').innerText = `✅ Built "${data.name}" (${data.watermark ? '🔒 Watermark ON' : '🔓 Watermark OFF'})`;
         document.getElementById('btnOpenPreview').href = data.previewUrl;
-
-        const btnWa = document.getElementById('btnSendWa');
-        if (data.pitches.whatsappSendUrl) {
-          btnWa.href = data.pitches.whatsappSendUrl;
-          btnWa.style.display = 'inline-flex';
-        } else {
-          btnWa.style.display = 'none';
-        }
-
+        document.getElementById('btnSendWa').href = data.pitches.whatsappSendUrl || '#';
         document.getElementById('pitchWa').innerText = data.pitches.whatsappPitch;
-        document.getElementById('pitchCall').innerText = data.pitches.callScript;
         document.getElementById('pitchEmail').innerText = `Subject: ${data.pitches.emailSubject}\n\n${data.pitches.emailPitch}`;
+        document.getElementById('pitchCall').innerText = data.pitches.callScript;
 
-        showBanner(`🎉 Generated custom client website for <strong>${payload.name}</strong>! Click "☁️ Publish Live to GitHub Pages" so the public link is live.`);
+        showToast(`✅ Website ready for "${data.name}"!`);
+        await loadManagedSites();
       } catch (err) {
-        showBanner(`❌ Error: ${err.message}`, true);
+        showToast('❌ Error: ' + err.message);
       }
     }
 
+    // 1-Click Publish All Sites to GitHub Pages
     async function publishToGitHubPages() {
-      const btn = document.getElementById('btnPublishGh');
+      const btn = document.getElementById('btnGlobalPublish');
+      const origText = btn.innerText;
       btn.disabled = true;
       btn.innerText = '⏳ Pushing to GitHub Pages...';
+      showToast('☁️ Committing and pushing all client sites to GitHub Pages...');
       try {
         const res = await fetch('/api/sites/publish', { method: 'POST' });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Failed to push');
-        showBanner(`✅ ${data.message}`);
+        if (!res.ok) throw new Error(data.error || 'Git push failed');
+        showToast('✅ ' + data.message);
       } catch (err) {
-        showBanner(`❌ GitHub Push Error: ${err.message}`, true);
+        showToast('❌ Publish error: ' + err.message);
       } finally {
         btn.disabled = false;
-        btn.innerText = '☁️ Publish Live to GitHub Pages';
+        btn.innerText = origText;
       }
     }
 
-    // Engine 3: Load Live Freelance Gigs
-    async function loadLiveGigs() {
-      const query = document.getElementById('gigQuery').value.trim() || 'design';
-      const location = document.getElementById('gigLocation').value.trim() || 'San Francisco';
-      const btn = document.getElementById('btnLoadGigs');
-      const container = document.getElementById('gigsResults');
+    // Engine 3: Local Lead Hunter
+    async function huntLeads() {
+      const btn = document.getElementById('btnHuntLeads');
+      const grid = document.getElementById('leadsGrid');
+      const city = document.getElementById('leadCity').value.trim();
+      const category = document.getElementById('leadCategory').value;
+      const limit = document.getElementById('leadLimit').value;
+
       btn.disabled = true;
-      btn.innerText = '⏳ Scanning SF Startups & Design Boards...';
-      showBanner(`🎯 Searching live <strong>${query}</strong> gigs & startup contracts for <strong>${location}</strong>...`);
+      btn.innerText = '⏳ Auditing Live Businesses...';
+      grid.innerHTML = `<div class="panel" style="grid-column:1/-1; text-align:center;">🔎 Searching OpenStreetMap &amp; auditing websites in <strong>${city}</strong>...</div>`;
 
       try {
-        const res = await fetch(`/api/gigs/live?query=${encodeURIComponent(query)}&location=${encodeURIComponent(location)}`);
+        const res = await fetch('/api/leads/search', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ city, category, limit })
+        });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Failed to load gigs');
+        if (!res.ok) throw new Error(data.error || 'Search failed');
 
-        showBanner(`✅ Found <strong>${data.count} live ${query} gigs & contracts</strong>! Pick one and click "Copy Antigravity Build Prompt" so I can build a live redesign prototype for you.`);
+        if (data.csvExport?.downloadUrl) {
+          const dl = document.getElementById('csvDownloadBtn');
+          dl.href = data.csvExport.downloadUrl;
+          dl.style.display = 'inline-flex';
+        }
 
-        container.innerHTML = data.gigs.map((g, idx) => {
-          const promptForAntigravity = `I want to win this live Design / UI gig right now:\nRole/Title: ${g.title}\nSource: ${g.source}\nURL: ${g.url}\n${g.contactEmail ? 'Direct Founder/Client Email: ' + g.contactEmail + '\n' : ''}Details: ${g.description}\n\n1. Build me a stunning, interactive HTML/CSS/JS UI redesign prototype or landing page concept for this company inside generated-sites/ so we can publish it to my GitHub Pages link.\n2. Write a short, high-converting cold email/pitch to ${g.contactEmail || g.author} with the live prototype link attached.`;
-          const encodedPrompt = encodeURIComponent(promptForAntigravity);
+        if (!data.leads || !data.leads.length) {
+          grid.innerHTML = `<div class="panel" style="grid-column:1/-1;">No leads found for ${category} in ${city}. Try a nearby major city.</div>`;
+          return;
+        }
 
+        grid.innerHTML = data.leads.map(l => {
+          const safeLead = encodeURIComponent(JSON.stringify(l));
           return `
-            <div class="item-card ${g.contactEmail ? 'hot' : ''}">
+            <div class="site-card">
               <div>
-                <div style="display:flex; justify-content:space-between; gap:8px; margin-bottom:6px;">
-                  <span class="score-pill ${g.contactEmail ? 'score-high' : 'score-med'}">${g.category}</span>
-                  <span style="font-size:11px; color:#94a3b8;">${g.source}</span>
+                <div class="site-card-header">
+                  <div>
+                    <div class="site-card-title">${l.name}</div>
+                    <div class="site-card-meta">📍 ${l.address || l.city} • 📞 <strong>${l.phone || 'Walk-in / Unlisted'}</strong></div>
+                  </div>
+                  <span class="badge ${l.website ? 'badge-style' : 'badge-protected'}">
+                    ${l.website ? l.audit?.status : '🔥 NO WEBSITE'}
+                  </span>
                 </div>
-                <strong style="font-size:15px; display:block; margin-bottom:6px;">${g.title}</strong>
-                ${g.contactEmail ? `<p class="meta-line" style="color:#fcd34d; margin-bottom:6px;">📧 <strong>Direct Founder Email:</strong> <a href="mailto:${g.contactEmail}" style="color:#38bdf8;">${g.contactEmail}</a></p>` : ''}
-                <p class="meta-line" style="margin-bottom:10px;">${g.description ? g.description.slice(0, 260) + (g.description.length > 260 ? '...' : '') : 'Click Open Listing to view full details.'}</p>
-                <p class="meta-line" style="color:#34d399;"><strong>Pitch Strategy:</strong> ${g.canAutoBuild}</p>
+                <div class="control-box" style="margin-top:12px; font-size:12.5px; color:var(--slate-700);">
+                  <div><strong>Audit:</strong> ${(l.audit?.issues || []).join(' • ')}</div>
+                  <div style="color:var(--accent-500); font-weight:700;">💡 ${l.audit?.recommendedOffer || 'Pitch Instant Booking Site'}</div>
+                </div>
               </div>
-              <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;">
-                <button class="btn" onclick="copyDecoded('${encodedPrompt}')">📋 Copy Antigravity Prototype Prompt</button>
-                <a href="${g.url}" target="_blank" class="btn btn-outline">🔗 Open Listing ↗</a>
-              </div>
+              <button class="btn btn-primary btn-sm" onclick="oneClickBuildFromLead('${safeLead}')">
+                ⚡ 1-Click Build Watermarked Preview Site
+              </button>
             </div>
           `;
         }).join('');
       } catch (err) {
-        showBanner(`❌ Error loading gigs: ${err.message}`, true);
+        grid.innerHTML = `<div class="panel" style="grid-column:1/-1;">❌ Error: ${err.message}</div>`;
       } finally {
         btn.disabled = false;
-        btn.innerText = '🔄 Search Live Design & Tech Gigs';
+        btn.innerText = '🚀 Hunt & Audit Live Leads';
       }
     }
 
-    function copyDecoded(encoded) {
-      const txt = decodeURIComponent(encoded);
-      navigator.clipboard.writeText(txt);
-      showBanner('✅ Copied! Now paste that prompt into our Antigravity chat and I will build the working sample for you in minutes.');
+    async function oneClickBuildFromLead(encodedLead) {
+      const l = JSON.parse(decodeURIComponent(encodedLead));
+      document.getElementById('sbCustomSlug').value = '';
+      document.getElementById('sbName').value = l.name || '';
+      document.getElementById('sbCategory').value = l.category || 'dentist';
+      document.getElementById('sbCity').value = l.city || 'Nairobi';
+      document.getElementById('sbAddress').value = l.address || l.city || 'Nairobi';
+      document.getElementById('sbPhone').value = l.phone || '+254 700 123 456';
+      document.getElementById('sbEmail').value = l.email || '';
+      document.getElementById('sbWatermark').value = 'true';
+      document.getElementById('sbIssue').value = (l.audit?.issues || [])[0] || "you don't currently have a dedicated mobile booking website linked to your listing";
+      switchTab('builder');
+      await generateCustomSite();
     }
+
+    // Engine 4: Live Design & Tech Gig Sniper
+    async function loadLiveGigs() {
+      const btn = document.getElementById('btnFetchGigs');
+      const grid = document.getElementById('gigsGrid');
+      const query = document.getElementById('gigQuery').value.trim() || 'design';
+      const location = document.getElementById('gigLocation').value.trim() || 'Nairobi';
+
+      btn.disabled = true;
+      btn.innerText = '⏳ Searching...';
+      grid.innerHTML = `<div class="panel" style="grid-column:1/-1; text-align:center;">🔎 Scanning YC Startups, HN Jobs, RemoteOK &amp; WeWorkRemotely for <strong>"${query}"</strong> in <strong>"${location}"</strong>...</div>`;
+
+      try {
+        const res = await fetch(`/api/gigs/live?query=${encodeURIComponent(query)}&location=${encodeURIComponent(location)}`);
+        const data = await res.json();
+        const gigs = data.gigs || [];
+        if (!gigs.length) {
+          grid.innerHTML = `<div class="panel" style="grid-column:1/-1;">No matching gigs found. Try broader keywords like "design" or "frontend".</div>`;
+          return;
+        }
+        grid.innerHTML = gigs.map(g => `
+          <div class="site-card">
+            <div>
+              <div class="site-card-header">
+                <span class="badge badge-style">${g.source}</span>
+                <span style="font-size:12px; color:var(--slate-500); font-weight:600;">${g.ageHours ? g.ageHours + 'h ago' : 'Active'}</span>
+              </div>
+              <div class="site-card-title" style="margin-top:10px; font-size:16px;">${g.title}</div>
+              <div class="site-card-meta">🏢 ${g.company || 'Direct Client'} ${g.contactEmail ? `• ✉️ <strong>${g.contactEmail}</strong>` : ''}</div>
+              <p style="font-size:12.5px; color:var(--slate-700); margin-top:10px;">${(g.description || '').slice(0, 220)}...</p>
+            </div>
+            <div class="card-actions">
+              <a href="${g.url}" target="_blank" class="btn btn-outline btn-sm">🔗 View Post ↗</a>
+              ${g.contactEmail
+                ? `<a href="mailto:${g.contactEmail}?subject=${encodeURIComponent('Application / Design Sample: ' + g.title)}" class="btn btn-primary btn-sm">✉️ Email Founder</a>`
+                : `<a href="${g.url}" target="_blank" class="btn btn-primary btn-sm">🚀 Apply Now ↗</a>`
+              }
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        grid.innerHTML = `<div class="panel" style="grid-column:1/-1;">❌ Error: ${err.message}</div>`;
+      } finally {
+        btn.disabled = false;
+        btn.innerText = '🔄 Search Live Gigs';
+      }
+    }
+
+    function copyText(elementId) {
+      const text = document.getElementById(elementId).innerText;
+      navigator.clipboard.writeText(text);
+      showToast('📋 Copied to clipboard!');
+    }
+
+    // Initialize on load
+    loadManagedSites();
   </script>
 </body>
 </html>

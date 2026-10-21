@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 const { searchGigs } = require('./search-gigs');
-const { buildHighEndSiteHtml } = require('./site-template');
+const { buildHighEndSiteHtml, DESIGN_VARIANTS } = require('./site-template');
 
 const PORT = 3050;
 const PUBLIC_DIR = path.join(__dirname, 'public');
@@ -369,16 +369,20 @@ const NICHE_THEMES = {
   }
 };
 
-function generateClientWebsite({ name, category, city, phone, email, address, variantIndex, watermark = true, issues = [] }) {
-  const slug = (name || 'client-business')
+function generateClientWebsite({ name, category = 'dentist', city, phone, email = '', address, variantIndex, watermark = true, issues = [], customSlug }) {
+  const slug = customSlug || (name || 'client-business')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '') || 'preview-site';
 
-  const cleanPhone = (phone || '+1 (555) 234-5678').trim();
-  const waDigits = cleanPhone.replace(/[^0-9]/g, '') || '15552345678';
-  const cleanCity = city || 'Your City';
+  const cleanPhone = (phone || '+254 700 123 456').trim();
+  const waDigits = cleanPhone.replace(/[^0-9]/g, '') || '254700123456';
+  const cleanCity = city || 'Nairobi';
   const cleanAddress = address || cleanCity;
+  const resolvedVariantIndex = typeof variantIndex === 'number'
+    ? ((variantIndex % DESIGN_VARIANTS.length) + DESIGN_VARIANTS.length) % DESIGN_VARIANTS.length
+    : 0;
+  const isWatermarked = watermark !== false;
 
   const html = buildHighEndSiteHtml({
     name,
@@ -387,8 +391,8 @@ function generateClientWebsite({ name, category, city, phone, email, address, va
     phone: cleanPhone,
     email,
     address: cleanAddress,
-    variantIndex: typeof variantIndex === 'number' ? variantIndex : undefined,
-    watermark: watermark !== false
+    variantIndex: resolvedVariantIndex,
+    watermark: isWatermarked
   });
 
   const siteFolder = path.join(SITES_DIR, slug);
@@ -401,19 +405,35 @@ function generateClientWebsite({ name, category, city, phone, email, address, va
     fs.copyFileSync(wmSource, path.join(siteFolder, 'watermark.png'));
   }
 
+  const meta = {
+    slug,
+    name,
+    category,
+    city: cleanCity,
+    address: cleanAddress,
+    phone: cleanPhone,
+    email: email || '',
+    variantIndex: resolvedVariantIndex,
+    variantLabel: DESIGN_VARIANTS[resolvedVariantIndex]?.label || 'Botanical Forest & Circular Collage',
+    watermark: isWatermarked,
+    issues: issues.length ? issues : ['your current online presence is missing a fast mobile booking & WhatsApp capture page'],
+    updatedAt: new Date().toISOString()
+  };
+  fs.writeFileSync(path.join(siteFolder, 'meta.json'), JSON.stringify(meta, null, 2), 'utf-8');
+
   const previewUrl = `http://localhost:${PORT}/sites/${slug}/index.html`;
   const publicUrl = `https://thairumwangi.github.io/daily-cashflow-machine/generated-sites/${slug}/`;
-  const mainIssue = issues[0] || 'your current online presence is missing a fast mobile booking & WhatsApp capture page';
+  const mainIssue = meta.issues[0];
 
-  const whatsappPitch = `Hi ${name} team! 👋 I was searching for ${category.replace('_', ' ')}s in ${cleanCity} today and noticed ${mainIssue.toLowerCase()}.\n\nSince I build high-converting sites for local businesses, I went ahead and mocked up a live, mobile-ready version specifically for *${name}* with instant WhatsApp booking built in:\n👉 ${publicUrl}\n\nNo pressure at all—if you like how it looks, I can connect it to your custom domain and WhatsApp today for a flat one-time setup. Want me to send a quick 30-second walkthrough?`;
+  const whatsappPitch = `Hi ${name} team! 👋\n\nI am Thairu — Designer & Developer, with a background in Computer Science and a design background having studied professional aesthetics since 2017.\n\nI was looking up ${category.replace('_', ' ')}s in ${cleanCity} today and noticed ${mainIssue.toLowerCase()}.\n\nSince I design high-converting websites for private practices and businesses, I went ahead and built a live, interactive preview specifically for *${name}* with 1-click WhatsApp scheduling built in:\n👉 ${publicUrl}\n\n*(Note: It currently has my Daniel Thairu Designs preview watermark over it, which comes off once activated).*\n\nTry clicking the booking calculator at the bottom! If you like how clean it looks, I can customize the text/photos and connect it to your official domain today. Would you like to get this live?`;
 
-  const emailSubject = `Built a new mobile booking page preview for ${name} (${cleanCity})`;
-  const emailPitch = `Hi ${name} Team,\n\nI was looking at ${name} in ${cleanCity} and noticed that ${mainIssue}.\n\nInstead of sending a generic pitch, I went ahead and built a working mobile website preview customized for ${name}—complete with an instant quote/appointment form and click-to-WhatsApp button:\n\nLive Preview: ${publicUrl}\n\nIf you want it, I can have it live on your custom domain within 24 hours for a flat $295 one-time fee (no expensive agency retainers).\n\nWould you be open to a quick 5-minute chat today?\n\nBest regards,`;
+  const emailSubject = `Built a live interactive booking website preview for ${name} (${cleanCity})`;
+  const emailPitch = `Hi ${name} Team,\n\nI am Daniel Thairu — Designer & Developer, with a background in Computer Science and professional design aesthetics studied since 2017.\n\nI was looking at ${name} in ${cleanCity} today and noticed that ${mainIssue}.\n\nInstead of sending a generic pitch, I went ahead and designed a clean, working mobile website preview customized specifically for ${name}—complete with an interactive 30-second appointment calculator and click-to-WhatsApp scheduling:\n\nLive Preview: ${publicUrl}\n(Note: It currently has my Daniel Thairu Designs preview watermark over it, which is removed upon handover).\n\nIf you like how it looks and functions, I can tailor it with your exact details and have it live on your official domain within 24 hours.\n\nWould you be open to a quick 5-minute chat today?\n\nBest regards,\nDaniel Thairu\nDesigner & Developer (CS & Professional Aesthetics since 2017)`;
 
-  const callScript = `"Hi, is this the owner/manager at ${name}? Great—I'll be super brief. I noticed when people look up ${name} in ${cleanCity} on their phone, ${mainIssue}. I actually already built a modern mobile version of your site with an instant WhatsApp booking form this morning so you can see it live. Can I WhatsApp you the live link (${publicUrl}) right now to check out?"`;
+  const callScript = `"Hi, is this the owner or practice manager at ${name}? Great—I'm Thairu, a Designer & Developer with a Computer Science and professional design background since 2017. I noticed when patients look up ${name} in ${cleanCity} on their phone, ${mainIssue}. I actually already built a clean, modern interactive preview of your site with a 1-click WhatsApp booking calculator this morning. Can I send the live link (${publicUrl}) to your WhatsApp or email right now so you can test it out?"`;
 
   return {
-    slug,
+    ...meta,
     filePath,
     previewUrl,
     publicUrl,
@@ -585,18 +605,75 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    // API: List already generated client websites
+    // API: List already generated client websites with full metadata & pitches
     if (pathname === '/api/sites/list' && req.method === 'GET') {
       const slugs = fs.existsSync(SITES_DIR)
         ? fs.readdirSync(SITES_DIR).filter(f => fs.existsSync(path.join(SITES_DIR, f, 'index.html')))
         : [];
-      return sendJson(res, 200, {
-        sites: slugs.map(slug => ({
+      const sites = slugs.map(slug => {
+        const metaPath = path.join(SITES_DIR, slug, 'meta.json');
+        let meta = {
           slug,
-          previewUrl: `http://localhost:${PORT}/sites/${slug}/index.html`,
-          publicUrl: `https://thairumwangi.github.io/daily-cashflow-machine/generated-sites/${slug}/`
-        }))
+          name: slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+          category: 'dentist',
+          city: 'Nairobi',
+          address: 'Nairobi',
+          phone: '+254 700 123 456',
+          email: '',
+          variantIndex: 0,
+          variantLabel: DESIGN_VARIANTS[0].label,
+          watermark: true,
+          issues: ['your current online presence is missing a fast mobile booking & WhatsApp capture page']
+        };
+        if (fs.existsSync(metaPath)) {
+          try {
+            meta = { ...meta, ...JSON.parse(fs.readFileSync(metaPath, 'utf-8')) };
+          } catch (_) {}
+        }
+        const previewUrl = `http://localhost:${PORT}/sites/${slug}/index.html`;
+        const publicUrl = `https://thairumwangi.github.io/daily-cashflow-machine/generated-sites/${slug}/`;
+        const waDigits = (meta.phone || '').replace(/[^0-9]/g, '');
+        const mainIssue = (meta.issues && meta.issues[0]) || 'your current online presence is missing a fast mobile booking & WhatsApp capture page';
+        const whatsappPitch = `Hi ${meta.name} team! 👋\n\nI am Thairu — Designer & Developer, with a background in Computer Science and a design background having studied professional aesthetics since 2017.\n\nI was looking up ${(meta.category || 'dentist').replace('_', ' ')}s in ${meta.city} today and noticed ${mainIssue.toLowerCase()}.\n\nSince I design high-converting websites for private practices and businesses, I went ahead and built a live, interactive preview specifically for *${meta.name}* with 1-click WhatsApp scheduling built in:\n👉 ${publicUrl}\n\n*(Note: It currently has my Daniel Thairu Designs preview watermark over it, which comes off once activated).*\n\nTry clicking the booking calculator at the bottom! If you like how clean it looks, I can customize the text/photos and connect it to your official domain today. Would you like to get this live?`;
+        return {
+          ...meta,
+          previewUrl,
+          publicUrl,
+          whatsappPitch,
+          whatsappSendUrl: waDigits ? `https://wa.me/${waDigits}?text=${encodeURIComponent(whatsappPitch)}` : null
+        };
       });
+      return sendJson(res, 200, { sites });
+    }
+
+    // API: 1-Click Update Site (Toggle Watermark ON/OFF or Switch Design Style)
+    if (pathname === '/api/sites/update' && req.method === 'POST') {
+      const body = await parseBody(req);
+      const slug = body.slug;
+      if (!slug) return sendJson(res, 400, { error: 'Site slug is required' });
+      const metaPath = path.join(SITES_DIR, slug, 'meta.json');
+      let existing = {
+        slug,
+        name: slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()),
+        category: 'dentist',
+        city: 'Nairobi',
+        address: 'Nairobi',
+        phone: '+254 700 123 456',
+        email: '',
+        variantIndex: 0,
+        watermark: true
+      };
+      if (fs.existsSync(metaPath)) {
+        try {
+          existing = { ...existing, ...JSON.parse(fs.readFileSync(metaPath, 'utf-8')) };
+        } catch (_) {}
+      }
+      const updated = generateClientWebsite({
+        ...existing,
+        ...body,
+        customSlug: slug
+      });
+      return sendJson(res, 200, updated);
     }
 
     // API: Engine 3 - Live Freelance Gig Sniper (Keyword + City Search)
