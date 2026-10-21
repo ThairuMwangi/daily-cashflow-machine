@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Nairobi Dental Suite | Adlife Plaza, Kilimani, Nairobi — Official Website & Online Booking</title>
+  <meta name="description" content="The Nairobi Dental Suite in Adlife Plaza, Kilimani, Nairobi. Modern, pain-free dental care for your entire family. Emergency appointments, teeth whitening, implants, and routine checkups." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #0ea5e9;
+      --accent-dark: #0284c7;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; color: #0f172a; background: #f8fafc; line-height: 1.6; }
+    .preview-banner {
+      background: #fef3c7; border-bottom: 2px solid #f59e0b; color: #92400e;
+      padding: 10px 20px; text-align: center; font-size: 13px; font-weight: 600;
+    }
+    header {
+      background: rgba(15, 23, 42, 0.95); color: #fff; padding: 16px 5%;
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 50; backdrop-filter: blur(8px);
+    }
+    .brand { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+    .brand span { color: var(--accent); }
+    .nav-cta {
+      background: var(--accent); color: #fff; text-decoration: none;
+      padding: 10px 18px; border-radius: 8px; font-weight: 600; font-size: 14px;
+      transition: 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent-dark); }
+    .hero {
+      background: linear-gradient(135deg, #0f172a 0%, #0c4a6e 100%); color: #fff; padding: 80px 5% 90px;
+      display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 40px; align-items: center;
+    }
+    @media (max-width: 820px) { .hero { grid-template-columns: 1fr; padding: 50px 5%; } }
+    .badge {
+      display: inline-block; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+      padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; margin-bottom: 18px;
+    }
+    .hero h1 { font-size: clamp(30px, 4.5vw, 50px); line-height: 1.12; font-weight: 800; margin-bottom: 18px; }
+    .hero p { font-size: 18px; color: #cbd5e1; margin-bottom: 28px; max-width: 600px; }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn-primary {
+      background: var(--accent); color: #fff; padding: 15px 26px; border-radius: 10px;
+      font-weight: 700; text-decoration: none; font-size: 16px; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-wa {
+      background: #22c55e; color: #fff; padding: 15px 26px; border-radius: 10px;
+      font-weight: 700; text-decoration: none; font-size: 16px; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .booking-card {
+      background: #fff; color: #0f172a; padding: 28px; border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+    }
+    .booking-card h3 { font-size: 20px; margin-bottom: 6px; }
+    .booking-card p { font-size: 13px; color: #64748b; margin-bottom: 18px; }
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; }
+    .form-group input, .form-group select {
+      width: 100%; padding: 11px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px;
+    }
+    .form-submit {
+      width: 100%; background: var(--accent); color: #fff; border: none; padding: 13px;
+      border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 6px;
+    }
+    .section { padding: 70px 5%; max-width: 1200px; margin: 0 auto; }
+    .section-title { text-align: center; margin-bottom: 45px; }
+    .section-title h2 { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+    .section-title p { color: #64748b; font-size: 16px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+    .card {
+      background: #fff; padding: 28px; border-radius: 14px; border: 1px solid #e2e8f0;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(15,23,42,0.08); }
+    .card h3 { font-size: 19px; margin-bottom: 10px; }
+    .card p { color: #475569; font-size: 14px; margin-bottom: 18px; }
+    .card-tag {
+      display: inline-block; font-size: 13px; font-weight: 700; color: var(--accent);
+      background: #f1f5f9; padding: 6px 12px; border-radius: 6px;
+    }
+    .trust-strip {
+      background: #fff; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;
+      padding: 28px 5%; display: flex; flex-wrap: wrap; justify-content: space-around; gap: 20px; text-align: center;
+    }
+    .stat strong { display: block; font-size: 26px; font-weight: 800; color: var(--accent); }
+    .stat span { font-size: 13px; color: #64748b; font-weight: 500; }
+    footer {
+      background: #0f172a; color: #94a3b8; padding: 50px 5%; text-align: center; font-size: 14px;
+    }
+    footer strong { color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="preview-banner">
+    ✨ LIVE PREVIEW PREPARED FOR <strong>THE NAIROBI DENTAL SUITE</strong> (Adlife Plaza, Kilimani, Nairobi) — Mobile-Optimized + Instant WhatsApp Booking Ready
+  </div>
+  <header>
+    <div class="brand">The Nairobi Dental Suite<span>.</span></div>
+    <a href="tel:+254 706 100 995" class="nav-cta">📞 Call +254 706 100 995</a>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="badge">📍 Serving Adlife Plaza, Kilimani, Nairobi • Premier Dental Care & Cosmetic Dentistry</div>
+      <h1>Bright, Healthy Smiles With Gentle Same-Week Appointments</h1>
+      <p>Modern, pain-free dental care for your entire family. Emergency appointments, teeth whitening, implants, and routine checkups.</p>
+      <div class="btn-row">
+        <a href="#booking" class="btn-primary">📅 Book Appointment Online</a>
+        <a href="https://wa.me/254706100995?text=Hi%20The%20Nairobi%20Dental%20Suite%2C%20I%20found%20your%20website%20and%20would%20like%20to%20book%2Finquire." target="_blank" class="btn-wa">💬 Chat on WhatsApp</a>
+      </div>
+    </div>
+
+    <div class="booking-card" id="booking">
+      <h3>Request Priority Callback / Quote</h3>
+      <p>Fill out in 30 seconds — our team at The Nairobi Dental Suite will confirm immediately.</p>
+      <form onsubmit="event.preventDefault(); alert('Demo Booking Captured! When connected, this sends directly to The Nairobi Dental Suite via WhatsApp & Email.');">
+        <div class="form-group">
+          <label>Your Full Name</label>
+          <input type="text" placeholder="e.g. Sarah Jenkins" required />
+        </div>
+        <div class="form-group">
+          <label>Phone / WhatsApp Number</label>
+          <input type="tel" placeholder="e.g. +1 555 019 2834" required />
+        </div>
+        <div class="form-group">
+          <label>How Can We Help You?</label>
+          <select>
+            <option>Teeth Cleaning & Whitening</option><option>Emergency Toothache Relief</option><option>Dental Implants & Crowns</option>
+            <option>General Inquiry / Custom Quote</option>
+          </select>
+        </div>
+        <button type="submit" class="form-submit">Get Instant Confirmation →</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="trust-strip">
+    <div class="stat"><strong>4.9 ★</strong><span>Customer Satisfaction</span></div>
+    <div class="stat"><strong>Same-Day</strong><span>Response & Scheduling</span></div>
+    <div class="stat"><strong>100%</strong><span>Verified Local Specialists</span></div>
+    <div class="stat"><strong>Adlife Plaza, Kilimani, Nairobi</strong><span>Convenient Location</span></div>
+  </div>
+
+  <section class="section">
+    <div class="section-title">
+      <h2>Our Core Services at The Nairobi Dental Suite</h2>
+      <p>Tailored solutions backed by professional care and transparent pricing.</p>
+    </div>
+    <div class="grid-3">
+      
+        <div class="card">
+          <h3>Teeth Cleaning & Whitening</h3>
+          <p>Professional scaling, polishing, and laser whitening for a confident smile in 1 visit.</p>
+          <span class="card-tag">Book Consultation →</span>
+        </div>
+      
+        <div class="card">
+          <h3>Emergency Toothache Relief</h3>
+          <p>Same-day priority appointments for severe dental pain, broken teeth, or fillings.</p>
+          <span class="card-tag">Same-Day Slot →</span>
+        </div>
+      
+        <div class="card">
+          <h3>Dental Implants & Crowns</h3>
+          <p>Long-lasting, natural-looking tooth replacements and porcelain veneers.</p>
+          <span class="card-tag">Free Assessment →</span>
+        </div>
+      
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>The Nairobi Dental Suite</strong> • 📍 Adlife Plaza, Kilimani, Nairobi • 📞 +254 706 100 995 </p>
+    <p style="margin-top:10px;">© 2026 The Nairobi Dental Suite. All Rights Reserved.</p>
+  </footer>
+</body>
+</html>
