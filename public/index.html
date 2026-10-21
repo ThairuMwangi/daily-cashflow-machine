@@ -419,6 +419,13 @@
             <input type="text" id="sbEmail" placeholder="info@business.com" />
           </div>
           <div class="field">
+            <label>Anti-Clone Watermark Protection</label>
+            <select id="sbWatermark">
+              <option value="true">🔒 Protected Preview (Daniel Thairu Designs 25% Watermark ON)</option>
+              <option value="false">🔓 Paid Final Handover (Watermark OFF)</option>
+            </select>
+          </div>
+          <div class="field">
             <label>Detected Audit Issue (Used in Pitch)</label>
             <input type="text" id="sbIssue" value="your business doesn't have a mobile booking page with instant WhatsApp scheduling" />
           </div>
@@ -656,6 +663,7 @@ python -c "from faster_whisper import WhisperModel; m = WhisperModel('small', de
     // Engine 2: Generate Client Website + Pitches
     async function generateCustomSite() {
       const varVal = document.getElementById('sbVariant').value;
+      const wmVal = document.getElementById('sbWatermark').value;
       const payload = {
         name: document.getElementById('sbName').value.trim(),
         category: document.getElementById('sbCategory').value,
@@ -663,6 +671,7 @@ python -c "from faster_whisper import WhisperModel; m = WhisperModel('small', de
         phone: document.getElementById('sbPhone').value.trim(),
         email: document.getElementById('sbEmail').value.trim(),
         variantIndex: varVal === 'auto' ? undefined : Number(varVal),
+        watermark: wmVal === 'true',
         issues: [document.getElementById('sbIssue').value.trim()]
       };
 

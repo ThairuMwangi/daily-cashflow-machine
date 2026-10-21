@@ -366,7 +366,7 @@ function renderServicesSection(v, servicesWithImgs, cleanName, waDigits) {
   `;
 }
 
-function buildHighEndSiteHtml({ name, category, city, phone, email, address, variantIndex }) {
+function buildHighEndSiteHtml({ name, category, city, phone, email, address, variantIndex, watermark = true }) {
   const cleanName = (name || 'Premier Care Studio').trim();
   const hash = hashString(cleanName);
 
@@ -752,9 +752,46 @@ function buildHighEndSiteHtml({ name, category, city, phone, email, address, var
     footer ul { list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 13.5px; }
     footer a { color: var(--accent-100); text-decoration: none; }
     .footer-bottom { max-width: 1240px; margin: 0 auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.12); text-align: center; font-size: 12.5px; color: #9CA3AF; }
+
+    /* Daniel Thairu Designs Anti-Clone Watermark Overlay */
+    .dt-watermark-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      user-select: none;
+      background-image: url('watermark.png');
+      background-repeat: repeat;
+      background-size: 560px auto;
+      background-position: center;
+      opacity: 0.25;
+      mix-blend-mode: multiply;
+    }
+    .dt-watermark-badge {
+      position: fixed;
+      bottom: 18px;
+      left: 18px;
+      z-index: 10000;
+      background: rgba(15, 23, 42, 0.88);
+      color: #F8FAFC;
+      backdrop-filter: blur(8px);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      pointer-events: none;
+      user-select: none;
+    }
   </style>
 </head>
-<body>
+<body ${watermark ? 'oncontextmenu="return false;"' : ''}>
+  ${watermark ? `
+  <div class="dt-watermark-overlay" aria-hidden="true"></div>
+  <div class="dt-watermark-badge">🔒 Protected Concept Preview • Daniel Thairu Designs (Watermark Removed Upon Final Handover)</div>
+  ` : ''}
 
   <!-- Top Utility Bar -->
   <div class="utility-bar">
@@ -1146,11 +1183,15 @@ if (require.main === module) {
     }
   ];
 
+  const wmSource = path.join(__dirname, 'public', 'watermark.png');
   for (const s of sites) {
     const folder = path.join(__dirname, 'generated-sites', s.slug);
     fs.mkdirSync(folder, { recursive: true });
-    fs.writeFileSync(path.join(folder, 'index.html'), buildHighEndSiteHtml(s), 'utf-8');
+    if (fs.existsSync(wmSource)) {
+      fs.copyFileSync(wmSource, path.join(folder, 'watermark.png'));
+    }
+    fs.writeFileSync(path.join(folder, 'index.html'), buildHighEndSiteHtml({ ...s, watermark: true }), 'utf-8');
     const vIdx = s.variantIndex % DESIGN_VARIANTS.length;
-    console.log(`Rebuilt [${s.slug}] with Variant #${vIdx + 1} (${DESIGN_VARIANTS[vIdx].label})`);
+    console.log(`Rebuilt [${s.slug}] with Variant #${vIdx + 1} (${DESIGN_VARIANTS[vIdx].label}) + Daniel Thairu Designs Watermark`);
   }
 }

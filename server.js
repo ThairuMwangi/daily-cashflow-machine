@@ -369,7 +369,7 @@ const NICHE_THEMES = {
   }
 };
 
-function generateClientWebsite({ name, category, city, phone, email, address, variantIndex, issues = [] }) {
+function generateClientWebsite({ name, category, city, phone, email, address, variantIndex, watermark = true, issues = [] }) {
   const slug = (name || 'client-business')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
@@ -387,13 +387,19 @@ function generateClientWebsite({ name, category, city, phone, email, address, va
     phone: cleanPhone,
     email,
     address: cleanAddress,
-    variantIndex: typeof variantIndex === 'number' ? variantIndex : undefined
+    variantIndex: typeof variantIndex === 'number' ? variantIndex : undefined,
+    watermark: watermark !== false
   });
 
   const siteFolder = path.join(SITES_DIR, slug);
   if (!fs.existsSync(siteFolder)) fs.mkdirSync(siteFolder, { recursive: true });
   const filePath = path.join(siteFolder, 'index.html');
   fs.writeFileSync(filePath, html, 'utf-8');
+
+  const wmSource = path.join(PUBLIC_DIR, 'watermark.png');
+  if (fs.existsSync(wmSource)) {
+    fs.copyFileSync(wmSource, path.join(siteFolder, 'watermark.png'));
+  }
 
   const previewUrl = `http://localhost:${PORT}/sites/${slug}/index.html`;
   const publicUrl = `https://thairumwangi.github.io/daily-cashflow-machine/generated-sites/${slug}/`;
@@ -518,7 +524,12 @@ const MIME_TYPES = {
   '.css': 'text/css; charset=utf-8',
   '.js': 'application/javascript; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
-  '.csv': 'text/csv; charset=utf-8'
+  '.csv': 'text/csv; charset=utf-8',
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.svg': 'image/svg+xml',
+  '.webp': 'image/webp'
 };
 
 const server = http.createServer(async (req, res) => {
@@ -596,12 +607,13 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 200, { count: gigs.length, query, location, gigs });
     }
 
-    // Serve generated client websites under /sites/<slug>/index.html
+    // Serve generated client websites under /sites/<slug>/index.html (and assets like watermark.png)
     if (pathname.startsWith('/sites/')) {
       const rel = pathname.replace(/^\/sites\//, '');
       const safePath = path.normalize(path.join(SITES_DIR, rel));
       if (safePath.startsWith(SITES_DIR) && fs.existsSync(safePath) && fs.statSync(safePath).isFile()) {
-        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        const ext = path.extname(safePath).toLowerCase();
+        res.writeHead(200, { 'Content-Type': MIME_TYPES[ext] || 'text/html; charset=utf-8' });
         return res.end(fs.readFileSync(safePath));
       }
     }
