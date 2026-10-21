@@ -369,7 +369,7 @@ const NICHE_THEMES = {
   }
 };
 
-function generateClientWebsite({ name, category, city, phone, email, address, issues = [] }) {
+function generateClientWebsite({ name, category, city, phone, email, address, variantIndex, issues = [] }) {
   const slug = (name || 'client-business')
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
@@ -386,7 +386,8 @@ function generateClientWebsite({ name, category, city, phone, email, address, is
     city: cleanCity,
     phone: cleanPhone,
     email,
-    address: cleanAddress
+    address: cleanAddress,
+    variantIndex: typeof variantIndex === 'number' ? variantIndex : undefined
   });
 
   const siteFolder = path.join(SITES_DIR, slug);

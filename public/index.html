@@ -398,6 +398,16 @@
             <label>City / Location</label>
             <input type="text" id="sbCity" placeholder="e.g. Westlands, Nairobi" value="Nairobi" />
           </div>
+          <div class="field">
+            <label>Design Architecture & Photo Pool</label>
+            <select id="sbVariant">
+              <option value="auto">🎲 Auto-Rotate Unique Style & Photos</option>
+              <option value="0">🌿 Style 1: Botanical Forest & Circular Collage</option>
+              <option value="1">🏛️ Style 2: Nordic Navy & Arch-Frame Editorial</option>
+              <option value="2">✨ Style 3: Luxury Serif & Magazine Frame</option>
+              <option value="3">🌊 Style 4: Ocean Teal & Staggered Dual-Column</option>
+            </select>
+          </div>
         </div>
 
         <div class="controls-row">
@@ -646,12 +656,14 @@ python -c "from faster_whisper import WhisperModel; m = WhisperModel('small', de
 
     // Engine 2: Generate Client Website + Pitches
     async function generateCustomSite() {
+      const varVal = document.getElementById('sbVariant').value;
       const payload = {
         name: document.getElementById('sbName').value.trim(),
         category: document.getElementById('sbCategory').value,
         city: document.getElementById('sbCity').value.trim(),
         phone: document.getElementById('sbPhone').value.trim(),
         email: document.getElementById('sbEmail').value.trim(),
+        variantIndex: varVal === 'auto' ? undefined : Number(varVal),
         issues: [document.getElementById('sbIssue').value.trim()]
       };
 
