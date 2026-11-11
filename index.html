@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daniel Thairu Designs — Modernist Design Systems, Corporate Catalogues &amp; Web Architecture</title>
+  <meta name="description" content="Daniel Thairu — Designer &amp; Developer (Computer Science &amp; Professional Aesthetics Since 2017). Modernist Company Profiles, Product Catalogues, Social Brand Kits &amp; Conversion Websites." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F4F1EA;
+      --paper-bright: #FAF8F3;
+      --ink: #111111;
+      --muted: #4A4A48;
+      --vermilion: #E03C28;
+      --cobalt: #18479E;
+      --ochre: #F2B705;
+      --emerald: #0F6848;
+      --rule: 2px solid #111111;
+      --thin-rule: 1px solid rgba(17, 17, 17, 0.22);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, .grotesk {
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: -0.035em;
+    }
+    .serif-wit {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    /* TOP ARCHITECTURAL INDEX STRIP */
+    .top-ticker {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 10px 4%;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-bottom: 4px solid var(--vermilion);
+    }
+
+    /* STICKY SWISS HEADER */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: var(--paper);
+      border-bottom: var(--rule);
+      padding: 16px 4%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--ink);
+    }
+    /* Paul Rand Striped Monogram Seal */
+    .rand-monogram {
+      width: 48px;
+      height: 48px;
+      background: var(--ink);
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--ink);
+      position: relative;
+    }
+    .rand-monogram span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.06em;
+      background: repeating-linear-gradient(
+        to bottom,
+        #F4F1EA 0px,
+        #F4F1EA 3px,
+        transparent 3px,
+        transparent 5px
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .brand-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.05;
+    }
+    .brand-sub {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      color: var(--ink);
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .nav-links a:hover { color: var(--vermilion); }
+
+    .rand-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--vermilion);
+      color: #ffffff !important;
+      text-decoration: none !important;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 10px 18px;
+      border: var(--rule);
+      box-shadow: 4px 4px 0px var(--ink);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .rand-cta:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px var(--ink);
+      color: #ffffff !important;
+    }
+
+    /* MAIN CONTAINER */
+    .shell {
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 4%;
+    }
+
+    /* HERO: ASYMMETRIC PAUL RAND POSTER GRID */
+    .hero-poster {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      border-left: var(--rule);
+      border-right: var(--rule);
+      border-bottom: var(--rule);
+      background: var(--paper-bright);
+    }
+    .hero-copy {
+      padding: 64px 52px;
+      border-right: var(--rule);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .kicker-tag {
+      display: inline-block;
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 12px;
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-size: clamp(42px, 5.4vw, 76px);
+      line-height: 0.95;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+    .hero-quote {
+      font-size: clamp(26px, 3vw, 36px);
+      line-height: 1.15;
+      border-left: 6px solid var(--vermilion);
+      padding-left: 18px;
+      margin-bottom: 22px;
+    }
+    .hero-bio {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 600px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border: var(--rule);
+      background: var(--paper);
+      color: var(--ink);
+      text-decoration: none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .btn-ghost:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    /* RIGHT COLUMN: ICONIC PAUL RAND GEOMETRIC BAUHAUS COMPOSITION */
+    .hero-art {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .art-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(244,241,234,0.22);
+      padding-bottom: 14px;
+    }
+    .art-canvas {
+      margin: 28px 0;
+      display: grid;
+      place-items: center;
+    }
+    .art-footer {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border-top: 1px solid rgba(244,241,234,0.22);
+      padding-top: 14px;
+    }
+
+    /* STUDIO BENCHMARKS STRIP */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border-left: var(--rule);
+      border-right: var(--rule);
+      border-bottom: var(--rule);
+      background: var(--paper);
+    }
+    .stat-box {
+      padding: 26px 28px;
+      border-right: var(--rule);
+    }
+    .stat-box:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 38px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-size: 11.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    /* SECTION HEADERS */
+    .section-block {
+      padding: 72px 0;
+      border-bottom: var(--rule);
+    }
+    .sec-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+    .sec-index {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--vermilion);
+      margin-bottom: 8px;
+    }
+    .sec-title {
+      font-size: clamp(30px, 3.6vw, 48px);
+      line-height: 1.02;
+      text-transform: uppercase;
+    }
+
+    /* REFINED 4-STAGE PROCESS MATRIX */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: var(--rule);
+      background: var(--paper-bright);
+      box-shadow: 10px 10px 0px var(--ink);
+    }
+    .proc-step {
+      padding: 32px 26px;
+      border-right: var(--rule);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .proc-step:last-child { border-right: none; }
+    .proc-num {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      border: var(--rule);
+    }
+    .proc-step h3 {
+      font-size: 20px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .proc-step p {
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+    .proc-deliverable {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding-top: 12px;
+      border-top: var(--thin-rule);
+    }
+
+    /* 4 DISCIPLINES BENTO */
+    .disciplines-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .disc-card {
+      border: var(--rule);
+      background: var(--paper-bright);
+      padding: 34px;
+      box-shadow: 8px 8px 0px var(--ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .disc-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .disc-shape {
+      width: 32px;
+      height: 32px;
+      border: var(--rule);
+    }
+
+    /* FILTERABLE CLIENT PROOF ARCHIVE */
+    .archive-controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 28px;
+      padding: 18px;
+      border: var(--rule);
+      background: var(--paper-bright);
+    }
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .ftab {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 9px 14px;
+      border: var(--rule);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+    }
+    .ftab.active {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .search-input {
+      min-width: 270px;
+      padding: 10px 14px;
+      border: var(--rule);
+      background: #ffffff;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      outline: none;
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 22px;
+    }
+    .proof-card {
+      border: var(--rule);
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 6px 6px 0px var(--ink);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .proof-card:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 10px 10px 0px var(--ink);
+    }
+    .card-accent-bar {
+      height: 8px;
+      border-bottom: var(--rule);
+    }
+    .card-inner {
+      padding: 22px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .card-meta-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .index-code {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 3px 8px;
+      border: 1.5px solid var(--ink);
+      background: var(--paper);
+    }
+    .discipline-pill {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      padding: 4px 8px;
+      text-transform: uppercase;
+    }
+    .card-brand {
+      font-size: 21px;
+      line-height: 1.15;
+      margin-bottom: 6px;
+    }
+    .card-sector {
+      font-size: 11.5px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    .card-spec {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    .card-bottom {
+      padding-top: 14px;
+      border-top: var(--thin-rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-tag {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .open-proof-link {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 6px 12px;
+      border: 1.5px solid var(--ink);
+      background: var(--ochre);
+    }
+    .open-proof-link:hover {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    /* FOOTER COLOPHON */
+    footer {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 64px 4%;
+      border-top: 6px solid var(--cobalt);
+    }
+    .footer-inner {
+      max-width: 1360px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    @media (max-width: 980px) {
+      .hero-poster, .process-grid, .disciplines-grid, .stats-strip, .footer-inner {
+        grid-template-columns: 1fr;
+      }
+      .hero-copy { border-right: none; border-bottom: var(--rule); padding: 40px 24px; }
+      .proc-step, .stat-box { border-right: none; border-bottom: var(--rule); }
+      .proc-step:last-child, .stat-box:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-ticker">
+    <span>◼ DANIEL THAIRU DESIGNS • MODERNIST ARCHITECTURE &amp; VISUAL SYSTEMS</span>
+    <span>COMPUTER SCIENCE &amp; PROFESSIONAL AESTHETICS STUDIED SINCE 2017</span>
+  </div>
+
+  <header>
+    <a href="#" class="brand-lockup">
+      <div class="rand-monogram"><span>DT</span></div>
+      <div>
+        <div class="brand-name">Daniel Thairu Designs</div>
+        <div class="brand-sub">Form, Function &amp; Engineered Brand Systems</div>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#process">01 / Process</a>
+      <a href="#disciplines">02 / Disciplines</a>
+      <a href="#archive">03 / Client Proof Index (13)</a>
+      <a href="#archive" class="rand-cta">Inspect Live Proofs →</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <!-- ================================================================== -->
+    <!-- HERO: PAUL RAND MODERNIST STUDIO POSTER                            -->
+    <!-- ================================================================== -->
+    <section class="hero-poster">
+      <div class="hero-copy">
+        <div>
+          <span class="kicker-tag">BRAND COLLATERAL &amp; EDITORIAL STUDIO • NAIROBI, KENYA</span>
+          <h1 class="hero-title">Form, Function &amp; Commercial Clarity.</h1>
+          <div class="hero-quote serif-wit">
+            "Design is so simple, that's why it is so complicated—every booklet, catalogue, and campaign graphic must earn trust on sight."
+          </div>
+          <p class="hero-bio">
+            Led by <strong>Daniel Thairu</strong>—combining a <strong>Computer Science</strong> precision foundation with <strong>professional design aesthetics studied since 2017</strong>. We craft Paul Rand-inspired Company Profile Booklets, Technical Product Catalogues, Visual Showcase Sheets, Trade Flyers, and Cohesive Social Media Brand Kits.
+          </p>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#archive" class="rand-cta">Browse 13 Live Design Proofs →</a>
+          <a href="#process" class="btn-ghost">See Our 4-Stage Handover Process</a>
+        </div>
+      </div>
+
+      <div class="hero-art" aria-hidden="true">
+        <div class="art-header">
+          <span>HOMAGE TO MODERNISM</span>
+          <span>GRID SYSTEM 01—04</span>
+        </div>
+
+        <div class="art-canvas">
+          <svg viewBox="0 0 340 300" style="width:100%; max-width:340px; height:auto;">
+            <!-- Vermilion Square -->
+            <rect x="10" y="15" width="145" height="145" fill="#E03C28" />
+            <!-- Cobalt Circle -->
+            <circle cx="250" cy="88" r="72" fill="#18479E" />
+            <!-- Striped Modernist Bars -->
+            <rect x="10" y="185" width="145" height="16" fill="#F4F1EA" />
+            <rect x="10" y="213" width="145" height="16" fill="#F4F1EA" />
+            <rect x="10" y="241" width="145" height="16" fill="#0F6848" />
+            <rect x="10" y="269" width="92" height="16" fill="#F2B705" />
+            <!-- Bauhaus Ochre Triangle -->
+            <polygon points="180,185 320,185 250,285" fill="#F2B705" />
+            <!-- Center Optical Dot -->
+            <circle cx="82" cy="88" r="24" fill="#111111" />
+          </svg>
+        </div>
+
+        <div class="art-footer">
+          <span>300-DPI PRINT &amp; CAMPAIGN PLATES</span>
+          <span>EDITION 2026</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- STUDIO BENCHMARKS                                                  -->
+    <!-- ================================================================== -->
+    <section class="stats-strip">
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--vermilion);">13</div>
+        <div class="stat-label">Live Design Asset Suites</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--cobalt);">300 DPI</div>
+        <div class="stat-label">A4 Print PDF &amp; 4:4:4 JPEG Plates</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num" style="color:var(--emerald);">2017</div>
+        <div class="stat-label">CS &amp; Aesthetics Mastery Since</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">24 HR</div>
+        <div class="stat-label">Clean Unwatermarked Handover</div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- 01 / REFINED 4-STAGE STUDIO PROCESS                                -->
+    <!-- ================================================================== -->
+    <section class="section-block" id="process">
+      <div class="sec-head">
+        <div>
+          <div class="sec-index">01 / ENGINEERED WORKFLOW</div>
+          <h2 class="sec-title">Refined Proof-to-Final <span class="serif-wit" style="text-transform:none; font-size:1.12em;">Studio Process</span></h2>
+        </div>
+        <p style="max-width:440px; font-size:14px; color:var(--muted);">
+          Zero guesswork. Every client inspects a tailored, watermark-protected design proof before activation—and receives clean print-grade master files immediately upon completion.
+        </p>
+      </div>
+
+      <div class="process-grid">
+        <div class="proc-step">
+          <div>
+            <div class="proc-num" style="background:var(--vermilion); color:#fff;">01</div>
+            <h3 style="margin-top:16px;">Audit &amp; Grid Concept</h3>
+            <p>We audit your brand positioning, product line, and target buyers, then construct a bespoke Swiss modernist grid layout.</p>
+          </div>
+          <div class="proc-deliverable">✦ Bespoke Editorial Grid</div>
+        </div>
+
+        <div class="proc-step">
+          <div>
+            <div class="proc-num" style="background:var(--cobalt); color:#fff;">02</div>
+            <h3 style="margin-top:16px;">Watermarked Client Proof</h3>
+            <p>You receive watermarked 300-DPI sample JPEGs plus a live multi-page proof link to review directly with your directors on mobile or desktop.</p>
+          </div>
+          <div class="proc-deliverable">🔒 Protected Client Preview</div>
+        </div>
+
+        <div class="proc-step">
+          <div>
+            <div class="proc-num" style="background:var(--ochre); color:#111;">03</div>
+            <h3 style="margin-top:16px;">SKU &amp; Brand Tailoring</h3>
+            <p>Once you select your package option, we populate your exact SKU specs, official product photography, pricing, and contact coordinates.</p>
+          </div>
+          <div class="proc-deliverable">⚡ Precision Customization</div>
+        </div>
+
+        <div class="proc-step">
+          <div>
+            <div class="proc-num" style="background:var(--emerald); color:#fff;">04</div>
+            <h3 style="margin-top:16px;">Clean Master Handover</h3>
+            <p>Preview watermarks are stripped and we deliver your clean Print-Ready A4 PDF booklet and properly named 300-DPI JPEGs ready for press &amp; social.</p>
+          </div>
+          <div class="proc-deliverable">🔓 Print PDF + Named 300-DPI JPEGs</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- 02 / FOUR CORE DESIGN DISCIPLINES                                  -->
+    <!-- ================================================================== -->
+    <section class="section-block" id="disciplines">
+      <div class="sec-head">
+        <div>
+          <div class="sec-index">02 / PRINT &amp; CAMPAIGN SYSTEMS</div>
+          <h2 class="sec-title">Four Modernist <span class="serif-wit" style="text-transform:none; font-size:1.12em;">Design Asset Pillars</span></h2>
+        </div>
+      </div>
+
+      <div class="disciplines-grid">
+        <div class="disc-card">
+          <div class="disc-top">
+            <span class="index-code">PILLAR 01</span>
+            <div class="disc-shape" style="background:var(--vermilion);"></div>
+          </div>
+          <div>
+            <h3 style="font-size:24px; margin-bottom:8px;">Paul Rand Booklets &amp; Corporate Business Profiles</h3>
+            <p style="font-size:14px; color:var(--muted);">Authoritative A4 Company Profiles, Executive Capability Statements, and Tender Dossiers built on disciplined Swiss grids to win corporate &amp; institutional contracts.</p>
+          </div>
+          <div style="font-size:12px; font-weight:800; letter-spacing:0.06em; text-transform:uppercase; color:var(--vermilion);">
+            Deliverables: Clean A4 Print-Ready PDF • 300-DPI Page JPEGs • Digital Flip Link
+          </div>
+        </div>
+
+        <div class="disc-card">
+          <div class="disc-top">
+            <span class="index-code">PILLAR 02</span>
+            <div class="disc-shape" style="background:var(--cobalt);"></div>
+          </div>
+          <div>
+            <h3 style="font-size:24px; margin-bottom:8px;">Technical Product Catalogues &amp; Spec Matrices</h3>
+            <p style="font-size:14px; color:var(--muted);">Structured SKU tables, model specifications, wholesale/retail pricing matrices, and category indexes engineered so buyers can order without confusion.</p>
+          </div>
+          <div style="font-size:12px; font-weight:800; letter-spacing:0.06em; text-transform:uppercase; color:var(--cobalt);">
+            Deliverables: Multi-SKU Catalogue Sheets • WhatsApp-Shareable Spec JPEGs
+          </div>
+        </div>
+
+        <div class="disc-card">
+          <div class="disc-top">
+            <span class="index-code">PILLAR 03</span>
+            <div class="disc-shape" style="background:var(--emerald);"></div>
+          </div>
+          <div>
+            <h3 style="font-size:24px; margin-bottom:8px;">Product Gallery Showcases, Trade Flyers &amp; Ad Plates</h3>
+            <p style="font-size:14px; color:var(--muted);">Asymmetric visual bento product galleries, distributor counter flyers, and high-contrast promotional ad posters calibrated for both 300-DPI print and digital broadcast.</p>
+          </div>
+          <div style="font-size:12px; font-weight:800; letter-spacing:0.06em; text-transform:uppercase; color:var(--emerald);">
+            Deliverables: Print A4/A5 Flyers • Bento Product Showcase Plates
+          </div>
+        </div>
+
+        <div class="disc-card">
+          <div class="disc-top">
+            <span class="index-code">PILLAR 04</span>
+            <div class="disc-shape" style="background:var(--ochre); border-radius:50%;"></div>
+          </div>
+          <div>
+            <h3 style="font-size:24px; margin-bottom:8px;">Social Media Brand Kits, Carousels &amp; Status Packs</h3>
+            <p style="font-size:14px; color:var(--muted);">Cohesive 1080×1080 hero brand posts, 4-slide educational carousels, client testimonial spotlights, offer flyers, and vertical WhatsApp Status / IG Story kits.</p>
+          </div>
+          <div style="font-size:12px; font-weight:800; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink);">
+            Deliverables: High-Res Campaign JPEGs • Brand Kit PDF • Monthly Retainer Packs
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================================== -->
+    <!-- 03 / LIVE INTERACTIVE CLIENT PROOF INDEX                           -->
+    <!-- ================================================================== -->
+    <section class="section-block" id="archive" style="border-bottom:none;">
+      <div class="sec-head">
+        <div>
+          <div class="sec-index">03 / CLIENT DESIGN REPOSITORY</div>
+          <h2 class="sec-title">Live Design Proof <span class="serif-wit" style="text-transform:none; font-size:1.12em;">Archive (13)</span></h2>
+        </div>
+        <p style="max-width:440px; font-size:13.5px; color:var(--muted);">
+          Select a collection below or search your company name to inspect your watermarked design proof. Clean print-ready files are released immediately upon activation.
+        </p>
+      </div>
+
+      <div class="archive-controls">
+        <div class="filter-tabs">
+          <button class="ftab active" onclick="filterProofs('all', this)">All Design Suites (13)</button>
+          <button class="ftab" onclick="filterProofs('paulrand', this)">01 / Paul Rand Booklets &amp; Catalogues (6)</button>
+          <button class="ftab" onclick="filterProofs('social', this)">02 / Social Media Brand Kits (7)</button>
+          
+        </div>
+        <input type="text" id="proofSearch" class="search-input" placeholder="Search brand, industry, or city..." oninput="applyProofFilters()" />
+      </div>
+
+      <div class="proof-grid" id="proofGrid">
+        
+      <article class="proof-card" data-type="paulrand" data-search="avocent africa medical medical supplies mombasa road, nairobi booklet, profile &amp; catalogue">
+        <div class="card-accent-bar" style="background:#E03C28;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">PR-01</span>
+              <span class="discipline-pill" style="background:#E03C28; color:#FFFFFF;">BOOKLET, PROFILE & CATALOGUE</span>
+            </div>
+            <h3 class="card-brand">Avocent Africa Medical</h3>
+            <div class="card-sector">MEDICAL SUPPLIES • Mombasa Road, Nairobi</div>
+            <p class="card-spec">Spec: 5-Sheet A4 PDF + 300-DPI JPEGs + Flyers</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/avocent-africa-paul-rand-suite/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      <article class="proof-card" data-type="paulrand" data-search="elite interiors nairobi furniture interiors nairobi, kenya booklet, profile &amp; catalogue">
+        <div class="card-accent-bar" style="background:#E03C28;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">PR-02</span>
+              <span class="discipline-pill" style="background:#E03C28; color:#FFFFFF;">BOOKLET, PROFILE & CATALOGUE</span>
+            </div>
+            <h3 class="card-brand">Elite Interiors Nairobi</h3>
+            <div class="card-sector">FURNITURE INTERIORS • Nairobi, Kenya</div>
+            <p class="card-spec">Spec: 5-Sheet A4 PDF + 300-DPI JPEGs + Flyers</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/elite-interiors-paul-rand-suite/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      <article class="proof-card" data-type="paulrand" data-search="majitec limited machinery hardware baba dogo, nairobi booklet, profile &amp; catalogue">
+        <div class="card-accent-bar" style="background:#E03C28;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">PR-03</span>
+              <span class="discipline-pill" style="background:#E03C28; color:#FFFFFF;">BOOKLET, PROFILE & CATALOGUE</span>
+            </div>
+            <h3 class="card-brand">Majitec Limited</h3>
+            <div class="card-sector">MACHINERY HARDWARE • Baba Dogo, Nairobi</div>
+            <p class="card-spec">Spec: 5-Sheet A4 PDF + 300-DPI JPEGs + Flyers</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/majitec-pumps-paul-rand-suite/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      <article class="proof-card" data-type="paulrand" data-search="mosaja medical supplies medical supplies nairobi cbd booklet, profile &amp; catalogue">
+        <div class="card-accent-bar" style="background:#E03C28;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">PR-04</span>
+              <span class="discipline-pill" style="background:#E03C28; color:#FFFFFF;">BOOKLET, PROFILE & CATALOGUE</span>
+            </div>
+            <h3 class="card-brand">Mosaja Medical Supplies</h3>
+            <div class="card-sector">MEDICAL SUPPLIES • Nairobi CBD</div>
+            <p class="card-spec">Spec: 5-Sheet A4 PDF + 300-DPI JPEGs + Flyers</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/mosaja-medical-paul-rand-suite/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      <article class="proof-card" data-type="paulrand" data-search="plasma solar limited solar energy mombasa road, nairobi booklet, profile &amp; catalogue">
+        <div class="card-accent-bar" style="background:#E03C28;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">PR-05</span>
+              <span class="discipline-pill" style="background:#E03C28; color:#FFFFFF;">BOOKLET, PROFILE & CATALOGUE</span>
+            </div>
+            <h3 class="card-brand">Plasma Solar Limited</h3>
+            <div class="card-sector">SOLAR ENERGY • Mombasa Road, Nairobi</div>
+            <p class="card-spec">Spec: 5-Sheet A4 PDF + 300-DPI JPEGs + Flyers</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/plasma-solar-paul-rand-suite/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      <article class="proof-card" data-type="paulrand" data-search="solar connect kenya solar energy lusaka road, nairobi booklet, profile &amp; catalogue">
+        <div class="card-accent-bar" style="background:#E03C28;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">PR-06</span>
+              <span class="discipline-pill" style="background:#E03C28; color:#FFFFFF;">BOOKLET, PROFILE & CATALOGUE</span>
+            </div>
+            <h3 class="card-brand">Solar Connect Kenya</h3>
+            <div class="card-sector">SOLAR ENERGY • Lusaka Road, Nairobi</div>
+            <p class="card-spec">Spec: 5-Sheet A4 PDF + 300-DPI JPEGs + Flyers</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/solar-connect-paul-rand-suite/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      <article class="proof-card" data-type="social" data-search="bamm tours &amp; safaris tours travel nairobi, kenya social media brand kit">
+        <div class="card-accent-bar" style="background:#F2B705;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">SK-01</span>
+              <span class="discipline-pill" style="background:#F2B705; color:#111111;">SOCIAL MEDIA BRAND KIT</span>
+            </div>
+            <h3 class="card-brand">Bamm Tours &amp; Safaris</h3>
+            <div class="card-sector">TOURS TRAVEL • Nairobi, Kenya</div>
+            <p class="card-spec">Spec: 6 Campaign Graphics + PDF + 300-DPI JPEGs</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/bamm-tours-social-kit/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      <article class="proof-card" data-type="social" data-search="blossom spa nairobi medspa beauty kilimani &amp; westlands, nairobi social media brand kit">
+        <div class="card-accent-bar" style="background:#F2B705;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">SK-02</span>
+              <span class="discipline-pill" style="background:#F2B705; color:#111111;">SOCIAL MEDIA BRAND KIT</span>
+            </div>
+            <h3 class="card-brand">Blossom Spa Nairobi</h3>
+            <div class="card-sector">MEDSPA BEAUTY • Kilimani &amp; Westlands, Nairobi</div>
+            <p class="card-spec">Spec: 6 Campaign Graphics + PDF + 300-DPI JPEGs</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/blossom-spa-social-kit/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      <article class="proof-card" data-type="social" data-search="faba homes real estate real estate kilimani, nairobi social media brand kit">
+        <div class="card-accent-bar" style="background:#F2B705;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">SK-03</span>
+              <span class="discipline-pill" style="background:#F2B705; color:#111111;">SOCIAL MEDIA BRAND KIT</span>
+            </div>
+            <h3 class="card-brand">FABA Homes Real Estate</h3>
+            <div class="card-sector">REAL ESTATE • Kilimani, Nairobi</div>
+            <p class="card-spec">Spec: 6 Campaign Graphics + PDF + 300-DPI JPEGs</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/faba-homes-social-kit/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      <article class="proof-card" data-type="social" data-search="primp &amp; coddle aesthetics spa medspa beauty westlands, nairobi social media brand kit">
+        <div class="card-accent-bar" style="background:#F2B705;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">SK-04</span>
+              <span class="discipline-pill" style="background:#F2B705; color:#111111;">SOCIAL MEDIA BRAND KIT</span>
+            </div>
+            <h3 class="card-brand">Primp &amp; Coddle Aesthetics Spa</h3>
+            <div class="card-sector">MEDSPA BEAUTY • Westlands, Nairobi</div>
+            <p class="card-spec">Spec: 6 Campaign Graphics + PDF + 300-DPI JPEGs</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/primp-and-coddle-social-kit/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      <article class="proof-card" data-type="social" data-search="skinsational wellness spa medspa beauty kilimani, nairobi social media brand kit">
+        <div class="card-accent-bar" style="background:#F2B705;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">SK-05</span>
+              <span class="discipline-pill" style="background:#F2B705; color:#111111;">SOCIAL MEDIA BRAND KIT</span>
+            </div>
+            <h3 class="card-brand">Skinsational Wellness Spa</h3>
+            <div class="card-sector">MEDSPA BEAUTY • Kilimani, Nairobi</div>
+            <p class="card-spec">Spec: 6 Campaign Graphics + PDF + 300-DPI JPEGs</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/skinsational-spa-social-kit/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      <article class="proof-card" data-type="social" data-search="willis electricals electronics shop rungiri / kikuyu, kiambu social media brand kit">
+        <div class="card-accent-bar" style="background:#F2B705;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">SK-06</span>
+              <span class="discipline-pill" style="background:#F2B705; color:#111111;">SOCIAL MEDIA BRAND KIT</span>
+            </div>
+            <h3 class="card-brand">Willis Electricals</h3>
+            <div class="card-sector">ELECTRONICS SHOP • Rungiri / Kikuyu, Kiambu</div>
+            <p class="card-spec">Spec: 6 Campaign Graphics + PDF + 300-DPI JPEGs</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/willis-electricals-social-kit/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      <article class="proof-card" data-type="social" data-search="willstone homes kenya real estate parklands / westlands, nairobi social media brand kit">
+        <div class="card-accent-bar" style="background:#F2B705;"></div>
+        <div class="card-inner">
+          <div>
+            <div class="card-meta-top">
+              <span class="index-code">SK-07</span>
+              <span class="discipline-pill" style="background:#F2B705; color:#111111;">SOCIAL MEDIA BRAND KIT</span>
+            </div>
+            <h3 class="card-brand">Willstone Homes Kenya</h3>
+            <div class="card-sector">REAL ESTATE • Parklands / Westlands, Nairobi</div>
+            <p class="card-spec">Spec: 6 Campaign Graphics + PDF + 300-DPI JPEGs</p>
+          </div>
+
+          <div class="card-bottom">
+            <span class="status-tag">🔒 WATERMARKED PROOF</span>
+            <a href="./generated-sites/willstone-homes-social-kit/" target="_blank" rel="noopener" class="open-proof-link">
+              OPEN PROOF <span>→</span>
+            </a>
+          </div>
+        </div>
+      </article>
+    
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <div style="font-size:11px; font-weight:800; letter-spacing:0.14em; color:var(--ochre); margin-bottom:10px;">
+          DANIEL THAIRU DESIGNS • NAIROBI, KENYA
+        </div>
+        <h2 style="font-size:clamp(28px, 3.2vw, 42px); line-height:1.08; margin-bottom:12px;">
+          Ready to Unlock Your Clean Print-Ready A4 PDF &amp; 300-DPI Named JPEGs?
+        </h2>
+        <p style="font-size:14.5px; opacity:0.82; max-width:620px;">
+          Reply directly to Daniel Thairu in your WhatsApp or Email thread with your preferred package option to populate your exact product specs and remove the preview watermark today.
+        </p>
+      </div>
+      <div style="border:2px solid rgba(244,241,234,0.3); padding:28px; background:rgba(255,255,255,0.03);">
+        <div class="grotesk" style="font-size:20px; font-weight:700; margin-bottom:8px;">STUDIO CREDENTIALS</div>
+        <p style="font-size:13px; opacity:0.85; line-height:1.6;">
+          • <strong>Principal:</strong> Daniel Thairu — Designer &amp; Developer<br/>
+          • <strong>Foundation:</strong> Computer Science &amp; Professional Aesthetics Since 2017<br/>
+          • <strong>Standards:</strong> Paul Rand Modernist Grids • 300-DPI Print &amp; 4:4:4 JPEG Calibration
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    let selectedType = 'all';
+    function filterProofs(type, btn) {
+      selectedType = type;
+      document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      applyProofFilters();
+    }
+    function applyProofFilters() {
+      const q = (document.getElementById('proofSearch').value || '').toLowerCase().trim();
+      document.querySelectorAll('.proof-card').forEach(card => {
+        const matchType = selectedType === 'all' || card.dataset.type === selectedType;
+        const matchQ = !q || card.dataset.search.includes(q);
+        card.style.display = (matchType && matchQ) ? 'flex' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
